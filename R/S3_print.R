@@ -57,7 +57,7 @@ print.ctree <- function(x, ...)
       printPretty(c, indent, c == cl[length(cl)])
   }
   
-  pio::pioHdr(paste0('REVOLVER tree - ', x$annotation), suffix = '\n')
+  pio::pioHdr(paste0('ctree - ', x$annotation))
   
   cat('\n')
   print(x$CCF)

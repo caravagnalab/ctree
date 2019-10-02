@@ -48,13 +48,11 @@ ctree_sampler = function(CCF_clusters,
   # TODO - check input formats
   
   pio::pioHdr(
-    paste("REVOLVER Construct phylogenetic trees for", patient),
-    c(
-      `Use precomputed trees` = compute_trees_denovo,
-      `Maximum state space size to switch from exhaustive to Montecarlo search` = options$sspace.cutoff,
-      `Number of Montecarlo samples, if not exhaustive` = options$n.sampling,
-      `Overwrite the tree if it is already available` = options$overwrite,
-      `Maximumum number of trees to store, if multiple are available` = options$store.max
+    paste("ctree ~ sample clone trees for", patient),
+    toPrint = c(
+      `MonteCarlo search if there are more than` = sspace.cutoff,
+      `Number of Montecarlo samples, if not exhaustive` = n.sampling,
+      `Maximumum number of trees to store, if multiple are available` = store.max
     ),
     prefix = '\t'
   )

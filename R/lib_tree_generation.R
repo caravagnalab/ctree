@@ -118,13 +118,23 @@ all.possible.trees = function(
   {
     combalternatives = prod(unlist(lapply(alternatives, length)))
     # cat('* Alternatives:', names(alternatives), '-- num.', combalternatives, '\n')
-    cat(combalternatives, 'solutions; ')
-
+    
+    
+    ex_search = ifelse(
+      combalternatives < sspace.cutoff,
+      "exahustive",
+      paste0('Montecarlo for ', n.sampling, 'distinct trees')
+    )
+    
+    pio::pioStr(
+      " Structures", combalternatives,  ' - search is ', ex_search,
+      prefix = crayon::green(clisymbols::symbol$tick),
+      suffix = '\n')
+    
+    
 
     if(combalternatives > sspace.cutoff)
     {
-      cat("sampling is", red('Montecarlo for', n.sampling, 'distinct trees\n'))
-
       return(
         weighted.sampling(
           DataFrameToMatrix(G),
@@ -133,14 +143,6 @@ all.possible.trees = function(
         )
       )
     }
-    else cat("sampling is", green('Exhaustive.\n'))
-
-
-
-
-    # cat('* Generating and checking trees in 2 seconds ...\n')
-    # Sys.sleep(2)
-
     altn = expand.grid(alternatives, stringsAsFactors = FALSE)
   }
   else cat(red('There are no alternatives!\n'))
@@ -462,109 +464,8 @@ weighted.sampling = function(G, W, n)
 
 }
 
-probability.raisers = function(G, W, n)
-{
-  S = S.hashcodes = NULL
-
-  sampleT = function()
-  {
-    r = root(G)
-
-    E = setdiff(colnames(G), r)
-    E = sample(E, length(E))
-
-    tree = NULL
-    repeat {
-      pi = sapply(E, function(node){
-        parents = W[[node]]
-        draw = sample(names(parents), prob = unlist(parents), size = 1)
-      })
-
-      tree = data.frame(from = unlist(pi), to = names(pi), stringsAsFactors = FALSE)
-      R = c(r, reach(tree, r))
-
-      if(all(colnames(G) %in% R)) break
-    }
-
-    return(tree)
-  }
-
-  c = 0
-  repeat{
-    Tree = sampleT()
-    hash = paste(sort(DataFrameToEdges(Tree)), collapse = ':')
-
-    if(!(hash %in% S.hashcodes))
-    {
-      S = append(S, list(Tree))
-      S.hashcodes = c(S.hashcodes, hash)
-      c = c + 1
-
-      # cat('Found one tree')
-    }
-    # else {cat('Already sampled tree\n')}
 
 
-    if(c == n) break;
-  }
-
-
-  cat('Sampled Trees: Cache (head)\n')
-  print(head(S.hashcodes))
-
-  return(S)
-}
-
-
-checkColinearity = function(TREES, ccf)
-{
-  muts = colnames(ccf)
-
-  C = NULL
-  for(m in muts)
-  {
-    conf = NULL
-    for(n in muts){
-      if((ccf[,m] %*% ccf[,n]) == 0) {
-        cat('Conflict: ', m, ' and ',n, '\n')
-        conf = c(conf, n)
-      }
-    }
-
-    if(length(conf) > 0) {
-      C = append(C, list(conf))
-      names(C)[length(C)] = m
-    }
-  }
-
-  cat('[check co-linearity] Violations\n')
-  print(C)
-
-  new.TREES = NULL
-  for(t in 1:length(TREES))
-  {
-    TR = TREES[[t]]
-
-    violates = FALSE
-    for(m in muts){
-      f = reach(TR, m)
-      if(!is.null(f) && any(f %in% C[[m]]))
-      {
-        cat('Tree ', DataFrameToEdges(TR), 'violates co-linearity since', m, '-->*', intersect(f, C[[m]]), '\n')
-        violates = TRUE
-
-        # g = graph_from_adjacency_matrix(DataFrameToMatrix(TR))
-        # plot(g)
-        # stop('ss')
-      }
-    }
-
-    if(!violates) new.TREES = append(new.TREES, list(TR))
-
-  }
-
-  return(new.TREES)
-}
 
 
 # for every edge  x --> y, the number of times that the CCF of x is greater than the CCF of y
@@ -599,8 +500,28 @@ edge.penalty.for.direction = function(TREES, ccf)
 # for every node  x --> y1 ... yK, the number of times that the CCF of x is greater than the sum of the CCFs of y1 ... yK
 node.penalty.for.branching = function(TREES, ccf)
 {
-  nodes = rownames(ccf)
-
+  
+  # easypar::run(
+  #   FUN = function(x)
+  #   {
+  #     t = DataFrameToMatrix(TREES[[x]])
+  #     nodes = rownames(ccf)
+  #     
+  #     
+  #     c = sapply(nodes, function(n) {
+  #       cl = children(t, n)
+  #       if(length(cl) == 0) return(1)
+  #       
+  #       1 - sum(as.numeric(ccf[n, ] < colSums(ccf[cl, , drop = FALSE])))/ncol(ccf)
+  #     })
+  #     
+  #     prod(c)
+  #   },
+  #   PARAMS = lapply(seq_along(TREES), list),
+  #   parallel = FALSE
+  # )
+  
+# 
   if(length(TREES) > 1)
   {
     pb = txtProgressBar(min = 1,
@@ -617,13 +538,13 @@ node.penalty.for.branching = function(TREES, ccf)
       if (pb.status) setTxtProgressBar(pb, x)
 
     t = DataFrameToMatrix(TREES[[x]])
-
-
+    nodes = rownames(ccf)
+    
+    
     c = sapply(nodes, function(n) {
       cl = children(t, n)
       if(length(cl) == 0) return(1)
-
-
+      
       1 - sum(as.numeric(ccf[n, ] < colSums(ccf[cl, , drop = FALSE])))/ncol(ccf)
     })
 
@@ -632,9 +553,9 @@ node.penalty.for.branching = function(TREES, ccf)
 
   if(length(TREES) > 1)
     close(pb)
-
-
-  return(scores)
+# 
+# 
+   return(scores)
 }
 
 

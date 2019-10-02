@@ -9,7 +9,6 @@
 #'
 #' @param x A REVOLVER cohort object.
 #' @param patient A patient id.
-#' @param cex Cex of the plot.
 #' @param ... Extra parameters, not used.
 #'
 #' @return A \code{ggplot} plot.
@@ -17,12 +16,11 @@
 #'
 #' @examples
 #' TODO
-plot_data_clusters = function(x, patient, cex = 1, ...)
+plot_data_clusters = function(x, ...)
 {
-  p = patient
-  
-  sm = Samples(x, p)
-  cl = CCF_clusters(x, p)
+  p = x$patient
+  sm = x$samples
+  cl = x$CCF
 
   # Values CCF
   cl_tab = cl %>%
@@ -50,27 +48,8 @@ plot_data_clusters = function(x, patient, cex = 1, ...)
     left_join(cl_tab_anno %>% select(cluster, is.driver), by = 'cluster') %>%
     mutate(is.driver = ifelse(is.na(CCF), FALSE, is.driver))
   
-  cl_CCF = CCF(x, p) %>%
-    group_by(cluster) %>%
-    filter(is.driver) %>%
-    summarise(
-      nDrivers = n(),
-      label = paste(variantID, collapse = ', ')
-    )
-  
-  cl_tab_anno = cl_tab_anno %>%
-    left_join(cl_CCF, by = 'cluster') %>%
-    mutate(
-      nDrivers = ifelse(is.na(nDrivers), '0', nDrivers)
-    )
-  
   # Factor to sort
   cl_tab$cluster = factor(cl_tab$cluster, levels = cluster_ordering)
-  # cl_CCF$cluster = factor(cl_CCF$cluster, levels = cluster_ordering)
-  
-  # Drivers number
-  # mD = max(cl_CCF$nDrivers)
-  # cl_tab_anno$nDrivers = factor(cl_tab_anno$nDrivers, levels = paste(0:mD))
   
   ggplot(
     cl_tab,
@@ -81,13 +60,13 @@ plot_data_clusters = function(x, patient, cex = 1, ...)
       fill = CCF,
       color = is.driver)
   ) +
-    geom_tile(aes(width = .8, height = .8), size = 1 * cex) +
+    geom_tile(aes(width = .8, height = .8), size = 1) +
     geom_text(aes(label = CCF), color = 'orange') +
     scale_fill_distiller(palette = 'Blues', na.value = 'gainsboro', direction = 1) +
     scale_color_manual(
       values = c(`TRUE` = 'red', `FALSE` = NA)
     ) +
-    theme_minimal(base_size = 10 * cex) +
+    theme_minimal(base_size = 10) +
     theme(
       legend.position = 'bottom',
       legend.key.size = unit(3, 'mm')

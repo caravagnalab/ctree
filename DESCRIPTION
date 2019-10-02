@@ -1,32 +1,27 @@
 Package: ctree
 Version: 0.01.1
-Date: 2019-5-1
+Date: 2019-9-28
 Title: ctree - Clone Tree
 Type: Package
 Author: Giulio Caravagna
 Maintainer: Giulio Caravagna <gcaravagn@gmail.com>
-Description: The R package that implements the REVOLVER algorithm to compute Repeated Evolution in Cancer from multi-region sequencing data.
+Description: This package provides the implementation of clone trees that can be used to study 
+  Cancer Evolution dynamics from bulk sequencing. This package provides several functions to
+  generate clone trees from the results of subclonal deconvolution analyses, to plot and summarise
+  trees.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Depends:
-    R (>= 3.4),
 Imports: 
-    crayon,
-    easypar,
-    cluster,
-    dendextend,
-    dynamicTreeCut,
-    vegan,
-    igraph,
-    tidyverse,
-    tidygraph,
-    ggraph,
-    ggpubr,
-    ggrepel,
-    pio,
-    RColorBrewer,
-    pheatmap,
+  pio,
+  easypar,
+  tidyverse,
+  tidygraph,
+  ggraph,
+  crayon,
+  igraph,
+  ggrepel,
+  RColorBrewer
 Remotes: 
     caravagn/pio,
     caravagn/easypar

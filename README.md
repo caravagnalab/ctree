@@ -1,26 +1,52 @@
-# revolver
-REVOLVER - Repeated Evolution in Cancer.
 
-An R package that implements the algorithm discussed in: 
+# ctree <img src='man/figures/logo.png' align="right" height="139" />
 
-* G. Caravagna, Y. Giarratano, D. Ramazzoti, I. Tomlinson, T.A. Graham, G. Sanguinetti, A. Sottoriva. *Detecting repeated cancer evolution from multi-region tumor sequencing data.* Nature Methods 15, 707–714 (2018).
+<!-- badges: start -->
 
-Journal paper: [Nature Methods](https://www.nature.com/articles/s41592-018-0108-x)
+[![Travis build
+status](https://travis-ci.org/caravagn/ctree.svg?branch=master)](https://travis-ci.org/caravagn/ctree)
+<!-- badges: end -->
 
-Case studies, vignettes, FAQ etc.: [Wiki](https://github.com/caravagn/revolver/wiki)
+`ctree` is a package that provides the implementation of clone trees
+from Cancer Cell Franctions (CCFs) data, which can be used to study a
+tumour’s evolutionary trajectories from bulk sequencing data.
 
-Bugs, help, etc.: [Issues](https://github.com/caravagn/revolver/issues)
+`ctree` is part of the `evoverse`, a package that gathers multiple R
+packages to implement Cancer Evolution analyses; see more [about
+evoverse](https://caravagn.github.io/evoverse).
 
+The package provides methods to create the trees into S3 objects, as
+well as a sampler to generate them with a Monte Carlo strategy that have
+been first described in the
+[revolver](https://caravagn.github.io/revolver) algorithm. The package
+provides also functions to plot the trees.
 
-## News
-- 12/2018: bug fixing, re-coded the parts of CloneEvol used in REVOLVER.
-- 11/2018: jamPDF is now associated to an option (default = FALSE) to increase compatibility.
-- 09/2018: released the first version of the tool.
+#### Help and support
 
-## Build report
+`ctree` has its own webpage at [GitHub
+pages](https://caravagn.github.io/ctree/).
 
-| Branch              | Stato CI      |
-|---------------------|---------------|
-| master | [![Build Status](https://travis-ci.org/caravagn/revolver.svg?branch=master)](https://travis-ci.org/caravagn/master) |
-| development | [![Build Status](https://travis-ci.org/caravagn/revolver.svg?branch=development)](https://travis-ci.org/caravagn/revolver.svg?branch=development) |
+-----
 
+### Installation
+
+You can install the released version of `ctree` from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("caravagn/ctree")
+```
+
+-----
+
+#### Copyright and contacts
+
+Giulio Caravagna, PhD. *Institute of Cancer Research, London, UK*.
+
+  - Personal webpage:
+    [https://bit.ly/2kc9E6Y](https://sites.google.com/site/giuliocaravagna/),
+  - Email address: <giulio.caravagna@icr.ac.uk> and
+    <gcaravagn@gmail.com>
+  - Twitter feed: [@gcaravagna](https://twitter.com/gcaravagna)
+  - GitHub space: [caravagn](https://github.com/caravagn)

@@ -32,25 +32,15 @@
 #' data(CRC.cohort)
 #' plot(CRC.cohort$phylogenies[['adenoma_3']][[1]])
 plot.ctree = function(x,
-                      cex = 1,
                       node_palette = colorRampPalette(RColorBrewer::brewer.pal(n = 9, "Set1")),
                       tree_layout = 'tree',
-                      information_transfer = FALSE,
-                      icon = FALSE,
                       ...)
 {
-  if (icon & information_transfer)
-    stop("Both `icon` and `information_transfer` are TRUE. Only one can be, aborting.")
-  
-  # =-=-=-=-=-=-=-=-
-  # Plotting in non-icon format, which consists of a tree
-  # with the all nodes and drivers annotated
-  # =-=-=-=-=-=-=-=-
-  if (!icon & !information_transfer)
-  {
-    # Get the tidygraph
+   # Get the tidygraph
     tree = x
     tb_tree = tree$tb_adj_mat
+    
+    cex = 1
     
     # TODO Color edges as of information transfer
     #  - get path
@@ -120,62 +110,4 @@ plot.ctree = function(x,
                              '.'))
     
     return(mainplot)
-  }
-  
-  # =-=-=-=-=-=-=-=-
-  # Plotting in non-icon format, but only the information transfer
-  # =-=-=-=-=-=-=-=-
-  
-  if (!icon & information_transfer)
-  {
-    return(
-      plot_information_transfer(
-        x,
-        cex = cex,
-        node_palette = node_palette,
-        tree_layout = tree_layout,
-        ...
-      )
-    )
-  }
-  
-  # =-=-=-=-=-=-=-=-
-  # Plotting in icon format
-  # =-=-=-=-=-=-=-=-
-  
-  if (icon)
-  {
-    # Get the tidygraph
-    tree = x
-    tb_tree = tree$tb_adj_mat
-    
-    # Color the nodes by cluster id
-    tb_node_colors = tb_tree %>% filter(is.driver) %>% pull(cluster)
-    
-    tb_node_colors = node_palette(length(tb_node_colors))
-    tb_node_colors = c(tb_node_colors, `GL` = 'white')
-    names(tb_node_colors) = c(tb_tree %>% filter(is.driver) %>% pull(cluster), 'GL')
-    
-    # Graph from transfer
-    tb_icon = as_tbl_graph(tree$transfer$clones) %>%
-      rename(cluster = name) %>%
-      activate(edges) %>%
-      mutate(cluster = .N()$cluster[from])
-    
-    # Plot call
-    layout <- create_layout(tb_icon, layout = tree_layout)
-    
-    ggraph(layout) +
-      geom_edge_link(aes(colour = cluster),
-                     width = 1) +
-      geom_node_point(aes(colour = cluster),
-                      size = 2.5) +
-      coord_cartesian(clip = 'off') +
-      theme_void(base_size = 8 * cex) +
-      theme(legend.position = 'none') +
-      scale_color_manual(values = tb_node_colors) +
-      scale_edge_color_manual(values = tb_node_colors) +
-      guides(color = FALSE,
-             size = FALSE)
-  }
 }
