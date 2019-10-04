@@ -119,6 +119,8 @@ all.possible.trees = function(
     combalternatives = prod(unlist(lapply(alternatives, length)))
     # cat('* Alternatives:', names(alternatives), '-- num.', combalternatives, '\n')
     
+    # print(combalternatives)
+    # print(sspace.cutoff)
     
     ex_search = ifelse(
       combalternatives < sspace.cutoff,
@@ -126,8 +128,10 @@ all.possible.trees = function(
       paste0('Montecarlo for ', n.sampling, 'distinct trees')
     )
     
+    # print(ex_search)
+    
     pio::pioStr(
-      " Structures", combalternatives,  ' - search is ', ex_search,
+      " Structures", combalternatives,  '- search is', ex_search,
       prefix = crayon::green(clisymbols::symbol$tick),
       suffix = '\n')
     
@@ -155,17 +159,17 @@ all.possible.trees = function(
   if(!is.null(sglt) && !is.null(altn)) comb =  cbind(altn, sglt)
 
 
-  pb = txtProgressBar(min = 0,
-                      max = nrow(comb),
-                      style = 3)
-  pb.status = getOption('revolver.progressBar', default = TRUE)
+  
+  pb =  dplyr::progress_estimated(n = nrow(comb), min_time = 2)
+  progress_bar = getOption('ctree.progressBar', default = TRUE)
 
   models = NULL
   for(i in 1:nrow(comb))
   {
-    if (pb.status)
-      setTxtProgressBar(pb, i)
-
+    if (progress_bar)
+      pb$tick()$print()
+    
+    
     tree = data.frame(from = unlist(comb[i, ]), to = colnames(comb), stringsAsFactors = FALSE)
     test.tree = DataFrameToMatrix(tree)
 
@@ -186,8 +190,6 @@ all.possible.trees = function(
 
     models = append(models, list(tree))
   }
-
-  close(pb)
 
 
   # cat(length(models), ' ')
@@ -221,16 +223,15 @@ reverse.mapping = function(M, map, from = rownames(M), cols = TRUE, rows = TRUE)
 
 rankTrees = function(TREES, MI.table, structural.score)
 {
-  pb = txtProgressBar(min = 0,
-                      max = length(TREES),
-                      style = 3)
-  pb.status = getOption('revolver.progressBar', default = TRUE)
+  pb = dplyr::progress_estimated(n = length(TREES), min_time = 2)
+  progress_bar = getOption('ctree.progressBar', default = TRUE)
 
   MI.TREES = NULL
   for(i in 1:length(TREES))
   {
-      if (pb.status) setTxtProgressBar(pb, i)
-
+    if (progress_bar)
+      pb$tick()$print()
+    
         M = DataFrameToMatrix(TREES[[i]])
         M = M[colnames(MI.table), colnames(MI.table)]
 
@@ -249,7 +250,7 @@ rankTrees = function(TREES, MI.table, structural.score)
 
           # cat("\nMI correction for", n, "entries equal 0; set equal to 1e-9.", prod(M.entries))
 
-          warning("Usud MI correction for", n, "entries equal 0; set equal to 1e-9.")
+          warning("Used MI correction for", n, "entries equal 0; set equal to 1e-9.")
         }
 #
 #         print(TREES[[i]])
@@ -259,7 +260,6 @@ rankTrees = function(TREES, MI.table, structural.score)
 
         MI.TREES = c(MI.TREES, val)
   }
-  close(pb)
 
   cat('Scores range from ', max(MI.TREES), '(max) to', min(MI.TREES), '(min)\n')
   # print(head(sort(table(MI.TREES), decreasing = T)))
@@ -433,7 +433,7 @@ weighted.sampling = function(G, W, n)
     return(tree)
   }
 
-  pb.status = getOption('revolver.progressBar', default = TRUE)
+  # pb.status = getOption('revolver.progressBar', default = TRUE)
 
   c = 0
   repeat{
@@ -450,7 +450,7 @@ weighted.sampling = function(G, W, n)
     }
     # else {cat('Already sampled tree\n')}
 
-    if(pb.status) cat('@ ', c, '\r')
+    # if(pb.status) cat('@ ', c, '\r')
 
 
     if(c == n) break;
@@ -522,21 +522,15 @@ node.penalty.for.branching = function(TREES, ccf)
   # )
   
 # 
-  if(length(TREES) > 1)
-  {
-    pb = txtProgressBar(min = 1,
-                      max = length(TREES),
-                      style = 3)
-    pb.status = getOption('revolver.progressBar', default = TRUE)
-  }
-
+  pb = dplyr::progress_estimated(n = length(TREES), min_time = 2)
+  progress_bar = getOption('ctree.progressBar', default = TRUE)
+  
   scores = NULL
   for(x in 1:length(TREES))
   {
     # update progress bar
-    if(length(TREES) > 1)
-      if (pb.status) setTxtProgressBar(pb, x)
-
+    if (progress_bar) pb$tick()$print()
+    
     t = DataFrameToMatrix(TREES[[x]])
     nodes = rownames(ccf)
     
@@ -551,10 +545,6 @@ node.penalty.for.branching = function(TREES, ccf)
     scores = c(scores, prod(c))
   }
 
-  if(length(TREES) > 1)
-    close(pb)
-# 
-# 
    return(scores)
 }
 

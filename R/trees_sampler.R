@@ -46,7 +46,7 @@ trees_sampler = function(CCF_clusters,
     pio::pioStr(
       " Trees per region", 
       paste(numSol, collapse = ', '),
-      prefix = ' ',
+      prefix = crayon::green(clisymbols::symbol$tick),
       suffix = '\n')
     
     ################## Build all possible clonal trees
@@ -104,10 +104,18 @@ trees_sampler = function(CCF_clusters,
     penalty.CCF.direction = 1
     
     # 4) Compute the branching penalty  --  this is done for each tree that we are considering
-    cat('Computing Pigeonhole Principle\n')
+    pio::pioStr(
+      " Pigeonhole Principle",
+      prefix = crayon::green(clisymbols::symbol$tick),
+      suffix = '\n')
+    
     penalty.CCF.branching = node.penalty.for.branching(TREES, df_clusters)
     
-    cat('Computing rank\n')
+    pio::pioStr(
+      " Ranking trees",
+      prefix = crayon::green(clisymbols::symbol$tick),
+      suffix = '\n')
+    
     RANKED = rankTrees(TREES, MI.table, penalty.CCF.branching)
     TREES = RANKED$TREES
     SCORES = RANKED$SCORES

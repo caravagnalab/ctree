@@ -2,23 +2,24 @@
 % Please edit documentation in R/S3_print.R
 \name{print.ctree}
 \alias{print.ctree}
-\title{Print a \code{"rev_phylo"} object.}
+\title{Print a \code{ctree} tree.}
 \usage{
 \method{print}{ctree}(x, ...)
 }
 \arguments{
-\item{x}{An object of class \code{"rev_phylo"}.}
+\item{x}{A \code{ctree} tree.}
 
-\item{...}{Extra parameters}
+\item{...}{Extra S3 parameters}
 }
 \value{
 Nothing
 }
 \description{
-Print a \code{"rev_phylo"} object.
+Print a \code{ctree} tree.
 }
 \details{
-Print a summary for a \code{"rev_phylo"} object, which includes MSDOS-like console layout for trees.
+Print a summary for a \code{ctree} object, which includes a
+shell-frinedly layout and other information.
 }
 \examples{
 data(CRC.cohort)

@@ -2,35 +2,47 @@
 % Please edit documentation in R/ctree.R
 \name{ctree}
 \alias{ctree}
-\title{Construct a clone tree.}
+\title{Construct a `ctree` clone tree with known structure.}
 \usage{
 ctree(CCF_clusters, drivers, samples, patient, M, score,
   annotation = paste0("Clone tree for patient ", patient))
 }
 \arguments{
-\item{patient}{The id of this patient in the cohort.}
+\item{CCF_clusters}{Clusters of Cancer Cell Fractions available in the data of
+this patient. See the package vignette to see the format in which this should
+be specified.}
 
-\item{M}{The tree adjacency matrix.}
+\item{drivers}{A list of driver events that should be annotated to each one
+of the input clusters contained in the `CCF_clusters` parameter. See the package 
+vignette to see the format in which this should be specified.}
 
-\item{score}{A score for this model, that we seek to maximize.}
+\item{samples}{A vector of samples names (e.g., the biopsies sequenced for
+this patient).}
 
-\item{annotation}{A string to annotate this tree.}
+\item{patient}{A string id that represent this patient.}
 
-\item{x}{A REVOLVER cohort.}
+\item{M}{The adjacency matrix defined to connect all the nodes of this tree.}
+
+\item{score}{A scalar score that can be associated to this tree.}
+
+\item{annotation}{Any string annotation that one wants to add to this `ctree`.
+This will be used by some of the plotting functions that display `ctree` objects.}
 }
 \value{
-An object of class \code{"rev_phylo"} that represents this tree.
+An object of class \code{"ctree"} that represents this tree.
 }
 \description{
-This constructor creates an object of type "rev_phylo", which represents a model
-for a patient. This is the same type of object regarldess data are CCF or binary values.
-}
-\note{
-This function is meant to be called after a REVOLVER cohort object has been
-created, via the constructure \code{\link{revolver_cohort}}.
+This constructor creates an object of class `'ctree'`, which represents a clone tree. 
+The tree is created from a set of clusters computed for a patient, usually
+with methods that carry out tumour subclonal deconvolution routines on bulk DNA 
+sequencing data.
+
+To create a tree a list of drivers can be provided to be annotated to an input 
+set of CCF clusters. There are a minimum amount of information and formatting
+fields that are required for tree construction to operate successfully. Please
+refer to the package vignette and the provided input datasets for more instructions.
 }
 \examples{
-
 # We re-build the trees for one patient
 data(TRACERx_cohort)
 
@@ -43,4 +55,9 @@ new_tree = revolver_phylogeny(TRACERx_cohort, patient = "CRUK0002", M, score = 1
 # S3 functions for this object
 print(new_tree)
 plot(new_tree)
+}
+\seealso{
+This function requires the input tree to be specified in the
+format of an adjacency matrix; plese see function \code{\link{cctrees}} if you
+need to create de novo also the adjacency matrices that fit your data.
 }

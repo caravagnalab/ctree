@@ -236,7 +236,7 @@ ClonEvol_surrogate = function(clusters, samples, clonal.cluster, min.CCF = 0.01)
                      TR = CCF_phylogeny_univariate(w, clonal.cluster)
 
                      # turn them into the format that the tools expects and remove the temporary WL node
-                     TR = lapply(TR, revolver:::MatrixToDataFrame)
+                     TR = lapply(TR, MatrixToDataFrame)
                      TR = lapply(TR, function(y){ y = y[y$from != 'WL', , drop = FALSE] })
                    }
                    else {

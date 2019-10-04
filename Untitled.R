@@ -41,10 +41,12 @@ x = ctree(CCF_clusters,
 print(x)
 plot(x)
 
-xx = ctrees(CCF_clusters,
-                       drivers,
-                       samples,
-                       patient,
-                       sspace.cutoff = 10000,
-                       n.sampling = 5000,
-                       store.max = 100)
+x = ctrees(
+  ctree_input$CCF_clusters,
+  ctree_input$drivers,
+  ctree_input$samples,
+  ctree_input$patient,
+  ctree_input$sspace.cutoff,
+  ctree_input$n.sampling,
+  ctree_input$store.max
+)

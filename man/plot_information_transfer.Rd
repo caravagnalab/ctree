@@ -4,14 +4,12 @@
 \alias{plot_information_transfer}
 \title{Plot the information transfer of a tree.}
 \usage{
-plot_information_transfer(x, cex = 1,
+plot_information_transfer(x,
   node_palette = colorRampPalette(RColorBrewer::brewer.pal(n = 9,
   "Set1")), tree_layout = "tree", ...)
 }
 \arguments{
-\item{x}{A REVOLVER tree.}
-
-\item{cex}{Cex of the plot.}
+\item{x}{A \code{ctree} tree.}
 
 \item{node_palette}{A function that can return, for an input number,
 a number of colours.}
@@ -24,18 +22,27 @@ a number of colours.}
 A \code{ggplot} object for the plot
 }
 \description{
-Compute via \code{ggraph} a graph for the
-information transfer of a REVOLVER's model. The tree is coloured
-so that drivers in the same clone have the same colour.
+The information transfer of the tree is the set of orderings
+associated to the internal annotated driver events.
+
+This function plots these orderings following a topological
+sort of the node of the corresponding clone tree.
 }
 \examples{
-data(TRACERx_cohort)
+data(ctree_input)
 
-# Extract transfer
-tree = Phylo(TRACERx_cohort, 'CRUK0002', rank = 1)
+x = ctrees(
+ctree_input$CCF_clusters, 
+ctree_input$drivers,
+ctree_input$samples,
+ctree_input$patient,
+ctree_input$sspace.cutoff,
+ctree_input$n.sampling,
+ctree_input$store.max
+)
 
-plot_information_transfer(tree)
+plot_information_transfer(x[[1]])
 
 # Change layout -- use igraph's "kk" layout
-plot_information_transfer(tree, tree_layout = 'kk')
+plot_information_transfer(x[[1]], tree_layout = 'kk')
 }

@@ -1,40 +1,43 @@
-#' Construct a clone tree.
+#' Construct a `ctree` clone tree with known structure.
 #'
 #' @description 
 #'
-#' This constructor creates an object of class `'ctree'`, which represents a clone tree for a 
-#' patient. The tree must be created from a set of clusters computed for a patient, usually
-#' with methods that carry out tumour subclonal deconvolution from bulk sequencing data.
-#' To create a tree a list of drivers should be annotated for the input clusters. 
+#' This constructor creates an object of class `'ctree'`, which represents a clone tree. 
+#' The tree is created from a set of clusters computed for a patient, usually
+#' with methods that carry out tumour subclonal deconvolution routines on bulk DNA 
+#' sequencing data.
 #' 
+#' To create a tree a list of drivers can be provided to be annotated to an input 
+#' set of CCF clusters. There are a minimum amount of information and formatting
+#' fields that are required for tree construction to operate successfully. Please
+#' refer to the package vignette and the provided input datasets for more instructions.
 #' 
-#' @param CCF_clusters 
-#' @param drivers 
-#' @param samples 
-#' @param patient 
-#' @param M 
-#' @param score 
-#' @param annotation 
-
-
-#' @param x A REVOLVER cohort.
-#' @param patient The id of this patient in the cohort.
-#' @param M The tree adjacency matrix.
-#' @param score A score for this model, that we seek to maximize.
-#' @param annotation A string to annotate this tree.
+#' @seealso This function requires the input tree to be specified in the
+#' format of an adjacency matrix; plese see function \code{\link{cctrees}} if you
+#' need to create de novo also the adjacency matrices that fit your data.
+#' 
+#' @param CCF_clusters Clusters of Cancer Cell Fractions available in the data of
+#' this patient. See the package vignette to see the format in which this should
+#' be specified.
+#' @param drivers A list of driver events that should be annotated to each one
+#' of the input clusters contained in the `CCF_clusters` parameter. See the package 
+#' vignette to see the format in which this should be specified.
+#' @param samples A vector of samples names (e.g., the biopsies sequenced for
+#' this patient).
+#' @param patient A string id that represent this patient. 
+#' @param M The adjacency matrix defined to connect all the nodes of this tree.
+#' @param score A scalar score that can be associated to this tree.
+#' @param annotation Any string annotation that one wants to add to this `ctree`.
+#' This will be used by some of the plotting functions that display `ctree` objects.
 #'
-#' @return An object of class \code{"rev_phylo"} that represents this tree.
+#' @return An object of class \code{"ctree"} that represents this tree.
+#' 
 #' @export
 #'
 #' @import crayon
 #' @import tidygraph
 #'
 #' @examples
-#' 
-#'
-#' 
-#'
-#' 
 #' # We re-build the trees for one patient
 #' data(TRACERx_cohort)
 #' 

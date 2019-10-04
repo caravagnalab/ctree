@@ -1,3 +1,48 @@
+#' Construct a `ctree` clone tree computing its structure.
+#'
+#' @description 
+#'
+#' This constructor creates a list of objects of class `'ctree'`, after using a
+#' sampling strategy to determine possible trees that fit the data. The strategy
+#' to sample trees can be controlled, a maximum number of trees can be sampled
+#' with a Monte Carlo procedure and the actual process can be exhausted if there
+#' are less than a number of available trees to fit the data.
+#' 
+#' Note that the parameters of this function includes the same parmeters of 
+#' function \code{\link{ctree}}, plus the parameters of the sampler. See 
+#'  \code{\link{ctree}} for an explanation of the parameters.
+#' 
+#' @param CCF_clusters Clusters of Cancer Cell Fractions available in the data of
+#' this patient. See the package vignette to see the format in which this should
+#' be specified.
+#' @param drivers A list of driver events that should be annotated to each one
+#' of the input clusters contained in the `CCF_clusters` parameter. See the package 
+#' vignette to see the format in which this should be specified.
+#' @param samples A vector of samples names (e.g., the biopsies sequenced for
+#' this patient).
+#' @param patient A string id that represent this patient. 
+#' @param M The adjacency matrix defined to connect all the nodes of this tree.
+#' @param score A scalar score that can be associated to this tree.
+#' @param annotation Any string annotation that one wants to add to this `ctree`.
+#' This will be used by some of the plotting functions that display `ctree` objects.
+#' @param sspace.cutoff If there are less than this number of tree available, all the
+#' structures are examined in an exhaustive fashion. Otherwise, if there are more than
+#' this, a Monte Carlo sampler is used.
+#' @param n.sampling If a Monte Carlo sampler is used, \code{n.sampling} distinct
+#' trees are sampled and scored.
+#' @param store.max When a number of trees are generated, scored and ranked, a maximum
+#' of \code{store.max} are returned to the user (these are selected following the 
+#' ranking).
+#'
+#' @return An list of objects of class \code{"ctree"} that represent the trees that 
+#' can be fit to the data of this patient..
+#' 
+#' @export
+#'
+#' @import crayon
+#' @import tidygraph
+#'
+#' @examples
 ctrees = function(CCF_clusters,
                               drivers,
                               samples,
@@ -9,15 +54,14 @@ ctrees = function(CCF_clusters,
   
   # TODO - check input formats
   
-  pio::pioHdr(
-    paste("ctree ~ sample clone trees for", patient),
-    toPrint = c(
-      `MonteCarlo search if there are more than` = sspace.cutoff,
-      `Number of Montecarlo samples, if not exhaustive` = n.sampling,
-      `Maximumum number of trees to store, if multiple are available` = store.max
-    ),
-    prefix = '\t'
-  )
+  pio::pioHdr(paste("ctree ~ generate clone trees for", patient))
+  
+  pioStr('Sampler : ', 
+         sspace.cutoff, '(cutoff), ', 
+         n.sampling, '(sampling)',
+         store.max, '(max store)',
+         suffix = '\n'
+         )
   
   # Sample structure for all trees
   structures = trees_sampler(

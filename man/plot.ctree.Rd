@@ -2,14 +2,14 @@
 % Please edit documentation in R/S3_plot.R
 \name{plot.ctree}
 \alias{plot.ctree}
-\title{S3 method that plots a REVOLVER tree.}
+\title{Plot a \code{ctree} tree.}
 \usage{
 \method{plot}{ctree}(x,
   node_palette = colorRampPalette(RColorBrewer::brewer.pal(n = 9,
   "Set1")), tree_layout = "tree", ...)
 }
 \arguments{
-\item{x}{A REVOLVER tree (object of class \code{"rev_phylo"}).}
+\item{x}{A \code{ctree} tree.}
 
 \item{node_palette}{A function that applied to a number will return a set of colors.
 By default this is a \code{colorRampPalette} applied to 9 colours of the \code{RColorBrewer}
@@ -19,24 +19,16 @@ transfer, which is obtained from \code{igraph}.}
 \item{tree_layout}{A layout that can be used by \code{tidygraph}, which wraps \code{igraph}'s
 layouts. By default this is a `tree` layout.}
 
-\item{...}{Extra parameters}
-
-\item{cex}{Cex for the plot.}
-
-\item{information_transfer}{If `TRUE`, the plot will show only the information
-transfer of the tree. The colouring of the nodes of the trees will match the colouring of
-the drivers.}
-
-\item{icon}{If `TRUE` the icon tree version of a tree is plot. This type of view does not show
-a clone unless it has a driver annotated. If this option is true together with \code{information_transfer}
-an erorr is generated.}
+\item{...}{Extra S3 parameters}
 }
 \value{
-The plot. If `add_information_transfer = TRUE` the object is a combined figure from
-package \code{ggpubr}, otherwise it is a single \code{ggplot} object.
+A \code{ggplot} plot of the tree.
 }
 \description{
-S3 method that plots a REVOLVER tree.
+This S3 method plots a \code{ctree} tree, using \code{ggraph} layout
+functions. The tree is annotated and coloured in each node (i.e.,
+cluster) that contain a driver event annotated. The driver id is also
+reported via \code{ggrepel} annotation functions.
 }
 \examples{
 data(CRC.cohort)
