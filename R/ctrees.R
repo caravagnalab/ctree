@@ -43,6 +43,21 @@
 #' @import tidygraph
 #'
 #' @examples
+#' 
+#' data('ctree_input')
+#' 
+#' x = ctrees(
+#'    ctree_input$CCF_clusters,
+#'    ctree_input$drivers,
+#'    ctree_input$samples,
+#'    ctree_input$patient,
+#'    ctree_input$sspace.cutoff,
+#'    ctree_input$n.sampling,
+#'    ctree_input$store.max
+#'    )
+#'    
+#' print(x[[1]])
+#' plot(x[[1]])
 ctrees = function(CCF_clusters,
                               drivers,
                               samples,
@@ -58,7 +73,7 @@ ctrees = function(CCF_clusters,
   
   pioStr('Sampler : ', 
          sspace.cutoff, '(cutoff), ', 
-         n.sampling, '(sampling)',
+         n.sampling, '(sampling), ',
          store.max, '(max store)',
          suffix = '\n'
          )
@@ -78,16 +93,19 @@ ctrees = function(CCF_clusters,
   SCORES = structures[[2]]
   
   # Trees assembly 
-  cat("Total number of trees with non-zero scores is", length(TREES))
+  
+  pio::pioStr(
+    " Trees with non-zero sscore",
+    length(TREES), 'storing',
+    min(length(TREES), store.max),
+    prefix = crayon::green(clisymbols::symbol$tick),
+    suffix = '\n')
   
   if(length(TREES) > store.max)
   {
-    cat(red(' -- too many, storing top', store.max, '\n'))
-    
     TREES = TREES[1:store.max]
     SCORES = SCORES[1:store.max]
-    
-  } else cat(green(' -- storing all\n'))
+  } 
   
   LSCORES = as.data.frame(SCORES)
   LSCORES = split(LSCORES, f = LSCORES[,1])

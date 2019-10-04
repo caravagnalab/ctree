@@ -261,7 +261,6 @@ rankTrees = function(TREES, MI.table, structural.score)
         MI.TREES = c(MI.TREES, val)
   }
 
-  cat('Scores range from ', max(MI.TREES), '(max) to', min(MI.TREES), '(min)\n')
   # print(head(sort(table(MI.TREES), decreasing = T)))
 
   o = order(MI.TREES, decreasing = TRUE)

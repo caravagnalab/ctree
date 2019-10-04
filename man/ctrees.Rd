@@ -21,9 +21,16 @@ this patient).}
 
 \item{patient}{A string id that represent this patient.}
 
-\item{sspace.cutoff}{}
+\item{sspace.cutoff}{If there are less than this number of tree available, all the
+structures are examined in an exhaustive fashion. Otherwise, if there are more than
+this, a Monte Carlo sampler is used.}
 
-\item{store.max}{}
+\item{n.sampling}{If a Monte Carlo sampler is used, \code{n.sampling} distinct
+trees are sampled and scored.}
+
+\item{store.max}{When a number of trees are generated, scored and ranked, a maximum
+of \code{store.max} are returned to the user (these are selected following the 
+ranking).}
 
 \item{M}{The adjacency matrix defined to connect all the nodes of this tree.}
 
@@ -33,7 +40,8 @@ this patient).}
 This will be used by some of the plotting functions that display `ctree` objects.}
 }
 \value{
-An object of class \code{"ctree"} that represents this tree.
+An list of objects of class \code{"ctree"} that represent the trees that 
+can be fit to the data of this patient..
 }
 \description{
 This constructor creates a list of objects of class `'ctree'`, after using a
@@ -45,4 +53,21 @@ are less than a number of available trees to fit the data.
 Note that the parameters of this function includes the same parmeters of 
 function \code{\link{ctree}}, plus the parameters of the sampler. See 
  \code{\link{ctree}} for an explanation of the parameters.
+}
+\examples{
+
+data('ctree_input')
+
+x = ctrees(
+   ctree_input$CCF_clusters,
+   ctree_input$drivers,
+   ctree_input$samples,
+   ctree_input$patient,
+   ctree_input$sspace.cutoff,
+   ctree_input$n.sampling,
+   ctree_input$store.max
+   )
+   
+print(x[[1]])
+plot(x[[1]])
 }

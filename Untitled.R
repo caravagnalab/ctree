@@ -10,7 +10,7 @@ library(R.utils)
 sourceDirectory('./R_2/')
 sourceDirectory('./R')
 
-load('ctree_input.RData')
+data('ctree_input')
 
 CCF_clusters = ctree_input$CCF_clusters
 drivers = ctree_input$drivers
