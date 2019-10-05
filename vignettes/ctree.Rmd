@@ -1,0 +1,96 @@
+---
+title: "ctree"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ctree}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+options(crayon.enabled=TRUE)
+```
+
+```{r, comment="", results="asis"}
+# To render in colour this vignette
+old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
+```
+
+```{r setup}
+library(ctree)
+```
+
+To build a clone tree you need some basic datal; an example dataset is attached to the package and can be used to create a `ctree` S3 object.
+```{r}
+data('ctree_input')
+```
+#### Required data
+
+**Cancer Cell Fractions**
+
+Cancer Cell Fractions (CCF) clusters obtained from subclonal deconvolution analysis of bulk DNA sequencing data are required,
+```{r}
+ctree_input$CCF_clusters
+```
+If you need tools to compute CCF values, the [evoverse](https://caravagn.github.io/evoverse/) collection of packages for Cancer Evolution analysis contains both [MOBSTER](https://caravagn.github.io/mobster/) and
+[VIBER](https://caravagn.github.io/viber/). Otherwise, a number of other packages can be used (pyClone, sciClone, DPClust, etc.).
+
+
+Driver events mapped to the CCF clusters, with reported clonality status, a `variantID` and a `patientID.`
+```{r}
+ctree_input$drivers
+```
+
+**Other data**
+
+```{r}
+ctree_input$samples
+ctree_input$patient
+```
+
+#### Creation of a clone tree
+
+You can use a sampler and control its parameters -- see `~ctrees`.
+```{r}
+x = ctrees(
+  ctree_input$CCF_clusters, 
+  ctree_input$drivers,
+  ctree_input$samples,
+  ctree_input$patient,
+  ctree_input$sspace.cutoff,
+  ctree_input$n.sampling,
+  ctree_input$store.max
+)
+```
+
+The sampler creates a number of clone trees that can fit the data according to an error model that allows violations of the pigeonhole principle. We work with the top-ranking model.
+```{r}
+x = x[[1]]
+```
+
+#### Visualisations
+
+S3 functions for printing, and summarizing the object.
+```{r}
+print(x)
+summary(x)
+```
+
+Then some plotting functions for the tree
+```{r}
+plot(x)
+plot_information_transfer(x)
+```
+```{r, fig.height=2.5, fig.height=2.5}
+plot_icon(x)
+```
+
+For the data
+```{r, fig.height=3, fig.height=3.5}
+plot_CCF_clusters(x)
+```

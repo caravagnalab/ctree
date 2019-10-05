@@ -42,7 +42,6 @@ To create a tree a list of drivers can be provided to be annotated to an input
 set of CCF clusters. There are a minimum amount of information and formatting
 fields that are required for tree construction to operate successfully. Please
 refer to the package vignette and the provided input datasets for more instructions." />
-<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -85,6 +84,9 @@ refer to the package vignette and the provided input datasets for more instructi
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/ctree.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -172,14 +174,39 @@ format of an adjacency matrix; plese see function <code>cctrees</code> if you
 need to create de novo also the adjacency matrices that fit your data.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># We re-build the trees for one patient</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>TRACERx_cohort</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: data set ‘TRACERx_cohort’ not found</span></div><div class='input'>
-<span class='co'># Because the function will return a new cohort, we can just</span>
-<span class='no'>M</span> <span class='kw'>=</span> <span class='no'>...</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): '...' used in an incorrect context</span></div><div class='input'>
-<span class='co'># Create a new tree, the score is made up</span>
-<span class='no'>new_tree</span> <span class='kw'>=</span> <span class='fu'>revolver_phylogeny</span>(<span class='no'>TRACERx_cohort</span>, <span class='kw'>patient</span> <span class='kw'>=</span> <span class='st'>"CRUK0002"</span>, <span class='no'>M</span>, <span class='kw'>score</span> <span class='kw'>=</span> <span class='fl'>17</span>)</div><div class='output co'>#&gt; <span class='error'>Error in revolver_phylogeny(TRACERx_cohort, patient = "CRUK0002", M, score = 17): could not find function "revolver_phylogeny"</span></div><div class='input'>
-<span class='co'># S3 functions for this object</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>new_tree</span>)</div><div class='output co'>#&gt; <span class='error'>Error in print(new_tree): object 'new_tree' not found</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>new_tree</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(new_tree): object 'new_tree' not found</span></div></pre>
+    <pre class="examples"><div class='input'>data('ctree_input')
+
+x = ctrees(
+   ctree_input$CCF_clusters,
+   ctree_input$drivers,
+   ctree_input$samples,
+   ctree_input$patient,
+   ctree_input$sspace.cutoff,
+   ctree_input$n.sampling,
+   ctree_input$store.max
+   )
+x = x[[1]]    
+   
+   
+# Adj matrix inside of the obejcts
+M = x$adj_mat
+   
+print(x[[1]])
+plot(x[[1]])
+
+y = ctree(
+ctree_input$CCF_clusters,
+   ctree_input$drivers,
+   ctree_input$samples,
+   ctree_input$patient,
+   M,
+   score = 123456,
+    annotation = paste0("Some clone tree"))
+)
+</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:29:1: unexpected ')'</span>
+#&gt; <span class='error'>28:     annotation = paste0("Some clone tree"))</span>
+#&gt; <span class='error'>29: )</span>
+#&gt; <span class='error'>    ^</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

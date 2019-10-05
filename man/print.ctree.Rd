@@ -22,6 +22,17 @@ Print a summary for a \code{ctree} object, which includes a
 shell-frinedly layout and other information.
 }
 \examples{
-data(CRC.cohort)
-CRC.cohort$phylogenies[['adenoma_3']][[1]]
+data(ctree_input)
+
+x = ctrees(
+ctree_input$CCF_clusters, 
+ctree_input$drivers,
+ctree_input$samples,
+ctree_input$patient,
+ctree_input$sspace.cutoff,
+ctree_input$n.sampling,
+ctree_input$store.max
+)
+
+print(x[[1]])
 }

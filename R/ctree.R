@@ -38,18 +38,35 @@
 #' @import tidygraph
 #'
 #' @examples
-#' # We re-build the trees for one patient
-#' data(TRACERx_cohort)
+#' data('ctree_input')
 #' 
-#' # Because the function will return a new cohort, we can just
-#' M = ...
+#' x = ctrees(
+#'    ctree_input$CCF_clusters,
+#'    ctree_input$drivers,
+#'    ctree_input$samples,
+#'    ctree_input$patient,
+#'    ctree_input$sspace.cutoff,
+#'    ctree_input$n.sampling,
+#'    ctree_input$store.max
+#'    )
+#' x = x[[1]]    
+#'    
+#'    
+#' # Adj matrix inside of the obejcts
+#' M = x$adj_mat
+#'    
+#' print(x[[1]])
+#' plot(x[[1]])
 #' 
-#' # Create a new tree, the score is made up
-#' new_tree = revolver_phylogeny(TRACERx_cohort, patient = "CRUK0002", M, score = 17)
-#' 
-#' # S3 functions for this object
-#' print(new_tree)
-#' plot(new_tree)
+#' y = ctree(
+#' ctree_input$CCF_clusters,
+#'    ctree_input$drivers,
+#'    ctree_input$samples,
+#'    ctree_input$patient,
+#'    M,
+#'    score = 123456,
+#'    annotation = paste0("Some clone tree")
+#' )
 ctree = 
   function(
     CCF_clusters,
