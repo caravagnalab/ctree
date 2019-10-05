@@ -19,7 +19,7 @@ a number of colours.}
 \item{...}{Other parameters, not used in this case.}
 }
 \value{
-A \code{ggplot} object for the plot
+A \code{ggplot} object for the plot.
 }
 \description{
 The information transfer of the tree is the set of orderings

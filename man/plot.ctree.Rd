@@ -31,6 +31,17 @@ cluster) that contain a driver event annotated. The driver id is also
 reported via \code{ggrepel} annotation functions.
 }
 \examples{
-data(CRC.cohort)
-plot(CRC.cohort$phylogenies[['adenoma_3']][[1]])
+data('ctree_input')
+
+x = ctrees(
+   ctree_input$CCF_clusters,
+   ctree_input$drivers,
+   ctree_input$samples,
+   ctree_input$patient,
+   ctree_input$sspace.cutoff,
+   ctree_input$n.sampling,
+   ctree_input$store.max
+   )
+   
+plot(x[[1]])
 }

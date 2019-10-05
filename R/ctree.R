@@ -34,8 +34,10 @@
 #' 
 #' @export
 #'
-#' @import crayon
+#' @import tidyverse
 #' @import tidygraph
+#' @import crayon
+#' @import dplyr
 #'
 #' @examples
 #' data('ctree_input')

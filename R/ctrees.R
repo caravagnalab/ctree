@@ -39,13 +39,16 @@
 #' 
 #' @export
 #'
-#' @import crayon
+#' @import tidyverse
 #' @import tidygraph
+#' @import crayon
 #' @import clisymbols
 #' @import dplyr
 #' @import entropy
 #' @import matrixcalc
 #' @import reshape2
+#' @import clisymbols
+#' @import easypar
 #'
 #' @examples
 #' 

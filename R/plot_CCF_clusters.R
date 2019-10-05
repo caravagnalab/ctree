@@ -11,6 +11,9 @@
 #' @param ... Extra parameters, not used.
 #'
 #' @return A \code{ggplot} plot.
+#' 
+#' @import reshape2
+#' 
 #' @export
 #'
 #' @examples

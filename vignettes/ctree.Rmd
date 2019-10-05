@@ -21,7 +21,10 @@ options(crayon.enabled=TRUE)
 old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 ```
 
-```{r setup}
+The `ctree` is a package to implement basic functions to create, manipulate and visualize clone trees. A clone tree is a tree built from the results of a subclonal deconvolution analysis of bulk DNA sequencing data. The trees created with `ctree` are used inside [REVOLVER](https://github.com/caravagn/revolver), a package that implements one algorithm to determine [repeated cancer evolution from multi-region sequencing data of human cancers](https://www.nature.com/articles/s41592-018-0108-x). 
+
+
+```{r setup, message=F, warning=F}
 library(ctree)
 ```
 
@@ -29,7 +32,7 @@ To build a clone tree you need some basic datal; an example dataset is attached 
 ```{r}
 data('ctree_input')
 ```
-#### Required data
+### Required data
 
 **Cancer Cell Fractions**
 
@@ -53,7 +56,7 @@ ctree_input$samples
 ctree_input$patient
 ```
 
-#### Creation of a clone tree
+### Creation of a clone tree
 
 You can use a sampler and control its parameters -- see `~ctrees`.
 ```{r}
@@ -73,7 +76,7 @@ The sampler creates a number of clone trees that can fit the data according to a
 x = x[[1]]
 ```
 
-#### Visualisations
+### Visualisations
 
 S3 functions for printing, and summarizing the object.
 ```{r}
@@ -82,15 +85,15 @@ summary(x)
 ```
 
 Then some plotting functions for the tree
-```{r}
+```{r, fig.height=4, fig.height=4}
 plot(x)
 plot_information_transfer(x)
 ```
-```{r, fig.height=2.5, fig.height=2.5}
+```{r, fig.height=2, fig.height=2}
 plot_icon(x)
 ```
 
 For the data
-```{r, fig.height=3, fig.height=3.5}
+```{r, fig.height=3.5, fig.height=4}
 plot_CCF_clusters(x)
 ```

@@ -3,9 +3,18 @@
   # =-=-=-=-=-=-
   # Required packages will be listed here
   # =-=-=-=-=-=-
-  requirements = c('tidyverse', 'tidygraph', 'igraph', 
-                   'ggraph',
-                   'pio', 'crayon', 'clisymbols', 'RColorBrewer', 'ggrepel')
+  requirements = c(
+    'tidyverse',
+    'tidygraph',
+    'igraph',
+    'ggraph',
+    'pio',
+    'easypar',
+    'crayon',
+    'clisymbols',
+    'RColorBrewer',
+    'ggrepel'
+  )
   
   suppressMessages(sapply(requirements, require, character.only = TRUE))
   
@@ -20,10 +29,12 @@
   
   ctree_welcome_message =  getOption('ctree_welcome_message', default = TRUE)
   
-  if(ctree_welcome_message)
+  if (ctree_welcome_message)
   {
     pio::pioHdr('ctree - Clone Trees in cancer')
-    pio::pioStr("Author : ", "Giulio Caravagna <gcaravagn@gmail.com>", suffix = '\n')
+    pio::pioStr("Author : ",
+                "Giulio Caravagna <gcaravagn@gmail.com>",
+                suffix = '\n')
     pio::pioStr("GitHub : ", "caravagn/ctree", suffix = '\n')
     
     options(ctree_welcome_message = FALSE)

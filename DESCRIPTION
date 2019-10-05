@@ -25,7 +25,8 @@ Imports:
   crayon,
   igraph,
   ggrepel,
-  RColorBrewer
+  RColorBrewer,
+  clisymbols
 Remotes: 
     caravagn/pio,
     caravagn/easypar

@@ -14,7 +14,11 @@
 #' @param tree_layout Layout of this model, as of \code{ggraph}.
 #' @param ... Other parameters, not used in this case.
 #'
-#' @return A \code{ggplot} object for the plot
+#' @return A \code{ggplot} object for the plot.
+#' 
+#' @import tidygraph
+#' @import crayon
+#' @import ggraph
 #' 
 #' @export
 #'
