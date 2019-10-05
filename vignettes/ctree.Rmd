@@ -84,7 +84,7 @@ print(x)
 summary(x)
 ```
 
-Then some plotting functions for the tree
+Then some plotting functions for the tree. A tree layout is used to display the clone tree and the information transfer, which corresponds to the ordering of the drivers annnotated in the tree. This terminology is borrowed from the [REVOLVER](https://github.com/caravagn/revolver) algorithm, where it is used to refer to the set of trajectories that a patient "transfers" to another patient during the fit.
 ```{r, fig.height=4, fig.height=4}
 plot(x)
 plot_information_transfer(x)

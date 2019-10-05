@@ -57,14 +57,16 @@ x = ctrees(
 x = x[[1]]    
    
    
-# Adj matrix inside of the obejcts
+# Adj matrix inside of the objects, we remove the GL
+# entry that is added as fake root by ctree
 M = x$adj_mat
-   
-print(x[[1]])
-plot(x[[1]])
+M = M[rownames(M) != 'GL', colnames(M) != 'GL']
 
+print(M)
+
+# Manual construction
 y = ctree(
-ctree_input$CCF_clusters,
+   ctree_input$CCF_clusters,
    ctree_input$drivers,
    ctree_input$samples,
    ctree_input$patient,
@@ -72,6 +74,10 @@ ctree_input$CCF_clusters,
    score = 123456,
    annotation = paste0("Some clone tree")
 )
+
+# The same
+print(x)
+print(y)
 }
 \seealso{
 This function requires the input tree to be specified in the

@@ -54,14 +54,16 @@
 #' x = x[[1]]    
 #'    
 #'    
-#' # Adj matrix inside of the obejcts
+#' # Adj matrix inside of the objects, we remove the GL
+#' # entry that is added as fake root by ctree
 #' M = x$adj_mat
-#'    
-#' print(x[[1]])
-#' plot(x[[1]])
+#' M = M[rownames(M) != 'GL', colnames(M) != 'GL']
 #' 
+#' print(M)
+#' 
+#' # Manual construction
 #' y = ctree(
-#' ctree_input$CCF_clusters,
+#'    ctree_input$CCF_clusters,
 #'    ctree_input$drivers,
 #'    ctree_input$samples,
 #'    ctree_input$patient,
@@ -69,6 +71,10 @@
 #'    score = 123456,
 #'    annotation = paste0("Some clone tree")
 #' )
+#' 
+#' # The same
+#' print(x)
+#' print(y)
 ctree = 
   function(
     CCF_clusters,
@@ -190,11 +196,7 @@ ctree =
     
     obj$annotation = annotation
     
-    obj$tree_type = ifelse(
-      all(obj$CCF %>% select(obj$samples) %in% c(0, 1)),
-      "Mutation tree (binary data)",
-      "Phylogenetic tree (CCF)"
-    )
+    obj$tree_type = "Clone tree from CCF data."
     
     return(obj)
   }
