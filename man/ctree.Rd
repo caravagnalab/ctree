@@ -70,7 +70,7 @@ ctree_input$CCF_clusters,
    ctree_input$patient,
    M,
    score = 123456,
-    annotation = paste0("Some clone tree"))
+   annotation = paste0("Some clone tree")
 )
 }
 \seealso{
