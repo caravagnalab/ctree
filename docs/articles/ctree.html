@@ -297,10 +297,14 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <p><img src="ctree_files/figure-html/unnamed-chunk-10-2.png" width="700"></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../reference/plot_icon.html">plot_icon</a></span>(x)</a></code></pre></div>
 <p><img src="ctree_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<p>For the data</p>
+<p>For the data, you can plot the CCF of the clusters.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/plot_CCF_clusters.html">plot_CCF_clusters</a></span>(x)</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; Warning: Removed 8 rows containing missing values (geom_text).</span></a></code></pre></div>
 <p><img src="ctree_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p>Or you can plot the size of each CCF cluster as a barplot. This barplot is annotated to report wether a subclone with a driver is significantly larger than the expected size for a subclone without driver. To carry out this test subclones without drivers are used to estimate the parameters of a univariate Gaussian distribution (mean and standard deviation), the p-value is then computed from the fit distribution through the <code>pnorm</code> function. The confidence level for the test can be passed as parameter.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/plot_clone_size.html">plot_clone_size</a></span>(x)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; Warning: Removed 3 rows containing missing values (geom_text).</span></a></code></pre></div>
+<p><img src="ctree_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
   </div>
 

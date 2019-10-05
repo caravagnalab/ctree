@@ -26,3 +26,5 @@ plot(x[[2]])
 
 plot_information_transfer(x[[1]])
 plot_icon(x[[1]])
+plot_CCF_clusters(x[[1]])
+plot_clone_size(x[[1]])

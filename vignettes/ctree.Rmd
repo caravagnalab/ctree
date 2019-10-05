@@ -93,7 +93,13 @@ plot_information_transfer(x)
 plot_icon(x)
 ```
 
-For the data
+For the data, you can plot the CCF of the clusters.
 ```{r, fig.height=3.5, fig.height=4}
 plot_CCF_clusters(x)
+```
+
+Or you can plot the size of each CCF cluster as a barplot. This barplot is annotated to report wether a subclone with a driver is significantly larger than the expected size for a subclone without driver. To carry out this test subclones without drivers are used to estimate the parameters of a univariate Gaussian distribution (mean and standard deviation), the p-value is then computed from the fit distribution through the `pnorm` function. The confidence level for the test can be passed as parameter.
+
+```{r, fig.height=3.5, fig.height=4}
+plot_clone_size(x)
 ```

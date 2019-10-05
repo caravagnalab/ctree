@@ -1,35 +1,49 @@
-#' Plot the clone size data for a patient.
+#' Plot a clone size histogram, and test for.
 #' 
 #' @description This function creates a \code{ggplot}
-#' barplot of the clone size values foe each clone in a patient's data.
+#' barplot of the clone size values foe each clone in the patient's data.
 #' The size of a clone is defined as the number of mutations assigned 
-#' to it. The barplot is annotated to report wether a subclone with a driver
+#' to it, and is provided in input. 
+#' 
+#' The barplot is annotated to report wether a subclone with a driver
 #' is significantly larger than the expected size for a subclone without
 #' driver. To carry out this test subclones without drivers are used to
 #' estimate the parameters of a univariate Gaussian distribution (mean
 #' and standard deviation), the p-value is then computed from the fit
-#' distribution through the `pnorm` function. The confidence level for
-#' the test can be passed as parameter.
+#' distribution through the `pnorm` function. 
+#' 
+#' The confidence level for the test can be passed as parameter.
 #'
-#' @param x A REVOLVER cohort object.
-#' @param patient A patient id.
+#' @param x A \code{ctree} tree.
 #' @param alpha_level Alpha level for the test, default is 0.05.
-#' @param cex Cex of the plot.
 #' @param ... Extra parameters, not used.
 #'
 #' @return A \code{ggplot} plot.
 #' 
-#' @export
+#' @export 
 #'
 #' @examples
-#' TODO
-plot_data_clone_size = function(x, patient, alpha_level = 0.05, cex = 1, ...)
+#' data('ctree_input')
+#' 
+#' x = ctrees(
+#'    ctree_input$CCF_clusters,
+#'    ctree_input$drivers,
+#'    ctree_input$samples,
+#'    ctree_input$patient,
+#'    ctree_input$sspace.cutoff,
+#'    ctree_input$n.sampling,
+#'    ctree_input$store.max
+#'    )
+#'    
+#' plot_clone_size(x[[1]])
+plot_clone_size = function(x, alpha_level = 0.05)
 {
-  p = patient
+  cex = 1
   
-  sm = Samples(x, p)
-  cl = CCF_clusters(x, p)
-
+  p = x$patient
+  sm = x$samples
+  cl = x$CCF
+  
   # Values CCF
   cl_tab = cl %>%
     select(!!sm, cluster) %>%
@@ -56,9 +70,8 @@ plot_data_clone_size = function(x, patient, alpha_level = 0.05, cex = 1, ...)
     left_join(cl_tab_anno %>% select(cluster, is.driver), by = 'cluster') %>%
     mutate(is.driver = ifelse(is.na(CCF), FALSE, is.driver))
   
-  cl_CCF = CCF(x, p) %>%
+  cl_CCF = x$drivers %>%
     group_by(cluster) %>%
-    filter(is.driver) %>%
     summarise(
       nDrivers = n(),
       label = paste(variantID, collapse = ', ')
@@ -79,7 +92,7 @@ plot_data_clone_size = function(x, patient, alpha_level = 0.05, cex = 1, ...)
   cl_tab_anno$nDrivers = factor(cl_tab_anno$nDrivers, levels = paste(0:mD))
   
   # Carry out the subclone size test
-  pvals = pval_subcsz(x, p)
+  pvals = pval_subcsz(x)
   
   cl_tab_anno = cl_tab_anno %>%
     mutate(cluster = paste(cluster)) %>%
@@ -109,7 +122,7 @@ plot_data_clone_size = function(x, patient, alpha_level = 0.05, cex = 1, ...)
       legend.key.size = unit(3, 'mm')
     ) +
     labs(
-      title = paste0("Clones size for ", patient),
+      title = paste0("Clones size for ", p),
       x = 'Number of mutations',
       y = 'Cluster',
       subtitle = paste0("Mutational burden = ", sum(cl_tab_anno$nMuts), ', ', sum(cl_CCF$nDrivers), ' driver(s) in total.')
@@ -120,10 +133,10 @@ plot_data_clone_size = function(x, patient, alpha_level = 0.05, cex = 1, ...)
     )
 }
 
-# Auxiliary function that makes the test used to color bars in plot_data_clone_size
-pval_subcsz = function(x, p)
+# Auxiliary function that makes the test used to color bars in plot_clone_size
+pval_subcsz = function(x)
 {
-  cl = CCF_clusters(x, p)
+  cl = x$CCF
   
   cltr = cl %>%
     filter(!is.clonal, !is.driver) %>%
