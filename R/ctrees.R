@@ -41,6 +41,11 @@
 #'
 #' @import crayon
 #' @import tidygraph
+#' @import clisymbols
+#' @import dplyr
+#' @import entropy
+#' @import matrixcalc
+#' @import reshape2
 #'
 #' @examples
 #' 
