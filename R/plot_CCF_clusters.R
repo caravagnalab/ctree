@@ -1,13 +1,12 @@
-
-#' Plot the clusters data for a patient.
+#' Plot CCF clusters data (tile).
 #' 
 #' @description This function creates a \code{ggplot}-style
-#' heatmap of the mean CCF of each clone in a patient's data.
+#' heatmap of the input CCF cluster of each clone in the data.
 #' The heatmap is annotated for the drivers status of each
 #' clone (with/ without driver). The CCF values are used to
 #' colour the heatmap (`NA` values are in light gray).
 #'
-#' @param x A REVOLVER cohort object.
+#' @param x A \code{ctree} tree.
 #' @param patient A patient id.
 #' @param ... Extra parameters, not used.
 #'
@@ -15,8 +14,20 @@
 #' @export
 #'
 #' @examples
-#' TODO
-plot_data_clusters = function(x, ...)
+#' data(ctree_input)
+#' 
+#' x = ctrees(
+#' ctree_input$CCF_clusters, 
+#' ctree_input$drivers,
+#' ctree_input$samples,
+#' ctree_input$patient,
+#' ctree_input$sspace.cutoff,
+#' ctree_input$n.sampling,
+#' ctree_input$store.max
+#' )
+#' 
+#' plot_CCF_clusters(x[[1]])
+plot_CCF_clusters = function(x, ...)
 {
   p = x$patient
   sm = x$samples

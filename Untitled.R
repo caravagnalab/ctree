@@ -12,35 +12,6 @@ sourceDirectory('./R')
 
 data('ctree_input')
 
-CCF_clusters = ctree_input$CCF_clusters
-drivers = ctree_input$drivers
-samples = ctree_input$samples
-patient = 'erwerfwer'
-
-sspace.cutoff = 10000
-n.sampling = 5000
-store.max = 100
-
-ctree =
-    CCF_clusters,
-    drivers,
-    samples,
-    patient,
-    M,
-    score,
-    annotation = paste0("Clone tree for patient ", patient))
-
-
-x = ctree(CCF_clusters,
-      drivers,
-      samples,
-      patient,
-      M = TREES[[1]],
-      score = 2)
-
-print(x)
-plot(x)
-
 x = ctrees(
   ctree_input$CCF_clusters,
   ctree_input$drivers,
@@ -50,3 +21,8 @@ x = ctrees(
   ctree_input$n.sampling,
   ctree_input$store.max
 )
+
+plot(x[[2]])
+
+plot_information_transfer(x[[1]])
+plot_icon(x[[1]])

@@ -198,27 +198,27 @@ all.possible.trees = function(
   return(models)
 }
 
-binarize = function(d, sample.groups, cutoff = 1e-3)
-{
-  clusters = clusters.table(d, sample.groups)
-  data = clusters[, sample.groups, drop = FALSE]
-  data[data > cutoff] = 1
-  data[data <= cutoff] = 0
+# binarize = function(d, sample.groups, cutoff = 1e-3)
+# {
+#   clusters = clusters.table(d, sample.groups)
+#   data = clusters[, sample.groups, drop = FALSE]
+#   data[data > cutoff] = 1
+#   data[data <= cutoff] = 0
+# 
+#   return(t(data))
+# }
 
-  return(t(data))
-}
-
-reverse.mapping = function(M, map, from = rownames(M), cols = TRUE, rows = TRUE)
-{
-  new.rownames = NULL
-  for(r in from)
-    new.rownames = c(new.rownames, unique(map[map$cluster == r, 'cluster.tracerx']))
-
-  if(cols) colnames(M) = new.rownames
-  if(rows) rownames(M) = new.rownames
-
-  return(M)
-}
+# reverse.mapping = function(M, map, from = rownames(M), cols = TRUE, rows = TRUE)
+# {
+#   new.rownames = NULL
+#   for(r in from)
+#     new.rownames = c(new.rownames, unique(map[map$cluster == r, 'cluster.tracerx']))
+# 
+#   if(cols) colnames(M) = new.rownames
+#   if(rows) rownames(M) = new.rownames
+# 
+#   return(M)
+# }
 
 
 rankTrees = function(TREES, MI.table, structural.score)
@@ -272,89 +272,89 @@ rankTrees = function(TREES, MI.table, structural.score)
 }
 
 
-useClonevo = function(my.data, sample.groups, clonal.cluster)
-{
-  for(s in sample.groups)
-  {
-    if(max(my.data[, s]) != max(my.data[my.data$cluster == clonal.cluster, s])) {
-      my.data[my.data$cluster == clonal.cluster, s] = 100
-        # max(my.data[, s]) + 1
-      warning('CCF correction for clonal cluster.')
-    }
-  }
-
-  # Clonevo wants progressive IDs for clusters...
-  my.data$cluster.tracerx = my.data$cluster
-  my.data = permuteClusterIds(my.data)
-
-  # cat('Creating progressive IDs for Clonevo\n')
-  # print(clusters.table(my.data, sample.groups))
-
-  clusterIdsMapping = my.data[, c('cluster', 'cluster.tracerx')]
-  clusterIdsMapping = unique(clusterIdsMapping)
-  rownames(clusterIdsMapping) = clusterIdsMapping$cluster
-  clusterIdsMapping$cluster = NULL
-
-
-  # Clonevol -- modified...
-  capture.output({
-    clonevol.obj = infer.clonal.models(
-      variants = my.data,
-      cluster.col.name = 'cluster',
-      # vaf.col.names = vaf.col.names,
-      ccf.col.names = sample.groups,
-      sample.names = sample.groups,
-      cancer.initiation.model = 'monoclonal',
-      # cancer.initiation.model = 'polyclonal',
-      # subclonal.test = 'bootstrap',
-      subclonal.test = 'none',
-      subclonal.test.model = 'non-parametric',
-      # subclonal.test.model = 'beta-binomial',
-      num.boots = 1000,
-      founding.cluster = clonal.cluster,
-      cluster.center = 'median',
-      ignore.clusters = NULL,
-      clone.colors = NULL,
-      min.cluster.vaf = 0.01,
-      # min probability that CCF(clone) is non-negative
-      sum.p = 0.05,
-      # alpha level in confidence interval estimate for CCF(clone)
-      alpha = 0.05,
-      verbose = F
-    )
-  })
-
-  clonevol.obj$matched = NULL
-  clonevol.obj$params = NULL
-  clonevol.obj$variants = NULL
-  clonevol.obj$num.matched.models = NULL
-
-  for(s in sample.groups)
-  {
-
-    w = clonevol.obj$models[[s]]
-
-
-    w = lapply(w, function(x){
-      x = x[, c('lab', 'parent')]
-      x = x[!is.na(x$parent), ]
-      x = x[ x$parent != -1, ]
-      colnames(x) = c('to', 'from')
-      x = x[, c('from', 'to')]
-      x$from = clusterIdsMapping[x$from, ]
-      x$to = clusterIdsMapping[x$to, ]
-      return(x)
-    })
-
-    clonevol.obj$models[[s]] = w
-
-  }
-
-
-
-
-  return(clonevol.obj)
-}
+# useClonevo = function(my.data, sample.groups, clonal.cluster)
+# {
+#   for(s in sample.groups)
+#   {
+#     if(max(my.data[, s]) != max(my.data[my.data$cluster == clonal.cluster, s])) {
+#       my.data[my.data$cluster == clonal.cluster, s] = 100
+#         # max(my.data[, s]) + 1
+#       warning('CCF correction for clonal cluster.')
+#     }
+#   }
+# 
+#   # Clonevo wants progressive IDs for clusters...
+#   my.data$cluster.tracerx = my.data$cluster
+#   my.data = permuteClusterIds(my.data)
+# 
+#   # cat('Creating progressive IDs for Clonevo\n')
+#   # print(clusters.table(my.data, sample.groups))
+# 
+#   clusterIdsMapping = my.data[, c('cluster', 'cluster.tracerx')]
+#   clusterIdsMapping = unique(clusterIdsMapping)
+#   rownames(clusterIdsMapping) = clusterIdsMapping$cluster
+#   clusterIdsMapping$cluster = NULL
+# 
+# 
+#   # Clonevol -- modified...
+#   capture.output({
+#     clonevol.obj = infer.clonal.models(
+#       variants = my.data,
+#       cluster.col.name = 'cluster',
+#       # vaf.col.names = vaf.col.names,
+#       ccf.col.names = sample.groups,
+#       sample.names = sample.groups,
+#       cancer.initiation.model = 'monoclonal',
+#       # cancer.initiation.model = 'polyclonal',
+#       # subclonal.test = 'bootstrap',
+#       subclonal.test = 'none',
+#       subclonal.test.model = 'non-parametric',
+#       # subclonal.test.model = 'beta-binomial',
+#       num.boots = 1000,
+#       founding.cluster = clonal.cluster,
+#       cluster.center = 'median',
+#       ignore.clusters = NULL,
+#       clone.colors = NULL,
+#       min.cluster.vaf = 0.01,
+#       # min probability that CCF(clone) is non-negative
+#       sum.p = 0.05,
+#       # alpha level in confidence interval estimate for CCF(clone)
+#       alpha = 0.05,
+#       verbose = F
+#     )
+#   })
+# 
+#   clonevol.obj$matched = NULL
+#   clonevol.obj$params = NULL
+#   clonevol.obj$variants = NULL
+#   clonevol.obj$num.matched.models = NULL
+# 
+#   for(s in sample.groups)
+#   {
+# 
+#     w = clonevol.obj$models[[s]]
+# 
+# 
+#     w = lapply(w, function(x){
+#       x = x[, c('lab', 'parent')]
+#       x = x[!is.na(x$parent), ]
+#       x = x[ x$parent != -1, ]
+#       colnames(x) = c('to', 'from')
+#       x = x[, c('from', 'to')]
+#       x$from = clusterIdsMapping[x$from, ]
+#       x$to = clusterIdsMapping[x$to, ]
+#       return(x)
+#     })
+# 
+#     clonevol.obj$models[[s]] = w
+# 
+#   }
+# 
+# 
+# 
+# 
+#   return(clonevol.obj)
+# }
 
 
 
@@ -468,33 +468,33 @@ weighted.sampling = function(G, W, n)
 
 
 # for every edge  x --> y, the number of times that the CCF of x is greater than the CCF of y
-edge.penalty.for.direction = function(TREES, ccf)
-{
-  nodes = rownames(ccf)
-
-  p = expand.grid(nodes, nodes)
-  colnames(p) = c('from', 'to')
-
-  direction = apply(p, 1, function(x){
-    1 - sum(as.numeric(ccf[x[1], ] < ccf[x[2], ]))/ncol(ccf)
-  })
-  p = cbind(p, direction)
-
-  rownames(p) = DataFrameToEdges(p)
-
-  cat('* Penalty table\n')
-  print(p)
-
-  cat('* Computing penalty for ', length(TREES),' trees\n.')
-
-  scores = sapply(1:length(TREES), function(x)
-  {
-    cat('@ ', x, '\r')
-    prod(p[DataFrameToEdges(TREES[[x]]), 'direction'])
-  })
-
-  return(scores)
-}
+# edge.penalty.for.direction = function(TREES, ccf)
+# {
+#   nodes = rownames(ccf)
+# 
+#   p = expand.grid(nodes, nodes)
+#   colnames(p) = c('from', 'to')
+# 
+#   direction = apply(p, 1, function(x){
+#     1 - sum(as.numeric(ccf[x[1], ] < ccf[x[2], ]))/ncol(ccf)
+#   })
+#   p = cbind(p, direction)
+# 
+#   rownames(p) = DataFrameToEdges(p)
+# 
+#   cat('* Penalty table\n')
+#   print(p)
+# 
+#   cat('* Computing penalty for ', length(TREES),' trees\n.')
+# 
+#   scores = sapply(1:length(TREES), function(x)
+#   {
+#     cat('@ ', x, '\r')
+#     prod(p[DataFrameToEdges(TREES[[x]]), 'direction'])
+#   })
+# 
+#   return(scores)
+# }
 
 # for every node  x --> y1 ... yK, the number of times that the CCF of x is greater than the sum of the CCFs of y1 ... yK
 node.penalty.for.branching = function(TREES, ccf)
@@ -548,32 +548,32 @@ node.penalty.for.branching = function(TREES, ccf)
 }
 
 
-compute.clusters = function(cohort, PARSERFUN){
-  cohort$cluster = NA
-  cohort$CCF = as.character(cohort$CCF)
-
-  bin2int <- function(x)
-  {
-    x <- as.character(as.numeric(x))
-    b <- as.numeric(unlist(strsplit(x, "")))
-    pow <- 2 ^ ((length(b) - 1):0)
-    sum(pow[b == 1])
-  }
-
-  for(i in 1:nrow(cohort))
-  {
-    binary.region = as.numeric(PARSERFUN(cohort$CCF[i]))
-    cohort$cluster[i] = bin2int(binary.region)
-  }
-
-  patients = unique(cohort$patientID)
-
-  for (patient in patients)
-  {
-    sub.cohort = cohort[which(cohort$patientID==patient),]
-    clust.patient = data.frame(match = unique(sub.cohort$cluster))
-    cohort$cluster[which(cohort$patientID==patient)] = match(sub.cohort$cluster, clust.patient$match)
-  }
-  return (cohort)
-
-}
+# compute.clusters = function(cohort, PARSERFUN){
+#   cohort$cluster = NA
+#   cohort$CCF = as.character(cohort$CCF)
+# 
+#   bin2int <- function(x)
+#   {
+#     x <- as.character(as.numeric(x))
+#     b <- as.numeric(unlist(strsplit(x, "")))
+#     pow <- 2 ^ ((length(b) - 1):0)
+#     sum(pow[b == 1])
+#   }
+# 
+#   for(i in 1:nrow(cohort))
+#   {
+#     binary.region = as.numeric(PARSERFUN(cohort$CCF[i]))
+#     cohort$cluster[i] = bin2int(binary.region)
+#   }
+# 
+#   patients = unique(cohort$patientID)
+# 
+#   for (patient in patients)
+#   {
+#     sub.cohort = cohort[which(cohort$patientID==patient),]
+#     clust.patient = data.frame(match = unique(sub.cohort$cluster))
+#     cohort$cluster[which(cohort$patientID==patient)] = match(sub.cohort$cluster, clust.patient$match)
+#   }
+#   return (cohort)
+# 
+# }

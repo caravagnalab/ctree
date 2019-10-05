@@ -30,4 +30,5 @@ Suggests:
     knitr,
     rmarkdown,
     matrixStats,
+    covr
 VignetteBuilder: knitr

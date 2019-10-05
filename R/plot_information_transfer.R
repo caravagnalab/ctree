@@ -1,4 +1,4 @@
-#' Plot the information transfer of a tree.
+#' Plot the information transfer of a tree (drivers ordering).
 #' 
 #' @description 
 #' 
@@ -71,9 +71,9 @@ plot_information_transfer = function(x,
   
   ggraph(layout) +
     geom_edge_diagonal(
-      arrow = arrow(length = unit(2.5 * cex, 'mm')),
-      end_cap = circle(2.5 * cex, 'mm'),
-      start_cap  = circle(2.5 * cex, 'mm'),
+      arrow = arrow(length = unit(2.5, 'mm')),
+      end_cap = circle(2.5, 'mm'),
+      start_cap  = circle(2.5, 'mm'),
       color = 'steelblue'
     ) +
     geom_node_point(
@@ -83,10 +83,10 @@ plot_information_transfer = function(x,
     ) +
     geom_node_text(aes(label = driver), color = 'black', size = 3) +
     coord_cartesian(clip = 'off') +
-    theme_void(base_size = 8 * cex) +
+    theme_void(base_size = 8) +
     theme(
       legend.position = 'bottom',
-      legend.key.size = unit(3 * cex, "mm")
+      legend.key.size = unit(3, "mm")
     ) +
     scale_fill_manual(values = drivers_colors) +
     scale_color_manual(

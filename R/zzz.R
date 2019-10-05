@@ -3,7 +3,9 @@
   # =-=-=-=-=-=-
   # Required packages will be listed here
   # =-=-=-=-=-=-
-  requirements = c('tidyverse', 'pio', 'crayon', 'clisymbols', 'RColorBrewer')
+  requirements = c('tidyverse', 'tidygraph', 'igraph', 
+                   'ggraph',
+                   'pio', 'crayon', 'clisymbols', 'RColorBrewer', 'ggrepel')
   
   suppressMessages(sapply(requirements, require, character.only = TRUE))
   

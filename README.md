@@ -5,21 +5,26 @@
 
 [![Travis build
 status](https://travis-ci.org/caravagn/ctree.svg?branch=master)](https://travis-ci.org/caravagn/ctree)
+[![Codecov test
+coverage](https://codecov.io/gh/caravagn/ctree/branch/master/graph/badge.svg)](https://codecov.io/gh/caravagn/ctree?branch=master)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
-`ctree` is a package that provides the implementation of clone trees
-from Cancer Cell Franctions (CCFs) data, which can be used to study a
-tumour’s evolutionary trajectories from bulk sequencing data.
+Thee `ctree` package provides a simple implementation of clone trees
+that can be build of Cancer Cell Franctions (CCFs) clusters computed by
+tumour subclonal deconvolution. This type of models can be used to study
+the evolutionary trajectories of a tumour from bulk sequencing data.
 
 `ctree` is part of the `evoverse`, a package that gathers multiple R
 packages to implement Cancer Evolution analyses; see more [about
 evoverse](https://caravagn.github.io/evoverse).
 
-The package provides methods to create the trees into S3 objects, as
-well as a sampler to generate them with a Monte Carlo strategy that have
-been first described in the
-[revolver](https://caravagn.github.io/revolver) algorithm. The package
-provides also functions to plot the trees.
+The package provides methods to create the trees as S3 objects, as well
+as a sampler to generate them with a Monte Carlo strategy that have been
+first described in the [revolver](https://caravagn.github.io/revolver)
+algorithm. The package provides also functions to plot and analyze the
+trees.
 
 #### Help and support
 

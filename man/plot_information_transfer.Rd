@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_information_transfer.R
 \name{plot_information_transfer}
 \alias{plot_information_transfer}
-\title{Plot the information transfer of a tree.}
+\title{Plot the information transfer of a tree (drivers ordering).}
 \usage{
 plot_information_transfer(x,
   node_palette = colorRampPalette(RColorBrewer::brewer.pal(n = 9,
