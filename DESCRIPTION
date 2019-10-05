@@ -27,7 +27,9 @@ Imports:
     ggrepel,
     RColorBrewer,
     clisymbols,
-    entropy
+    entropy,
+    matrixcalc,
+    reshape2
 Remotes: 
     caravagn/pio,
     caravagn/easypar

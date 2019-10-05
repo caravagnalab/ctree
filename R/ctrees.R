@@ -43,7 +43,6 @@
 #' @import tidygraph
 #' @import crayon
 #' @import clisymbols
-#' @import dplyr
 #' @import entropy
 #' @import matrixcalc
 #' @import reshape2

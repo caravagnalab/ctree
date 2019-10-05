@@ -4,17 +4,19 @@
   # Required packages will be listed here
   # =-=-=-=-=-=-
   requirements = c(
-    'tidyverse',
-    'tidygraph',
-    'igraph',
-    'ggraph',
     'pio',
     'easypar',
+    'tidyverse',
+    'tidygraph',
+    'ggraph',
     'crayon',
-    'clisymbols',
+    'igraph',
+    'ggrepel',
     'RColorBrewer',
+    'clisymbols',
     'entropy',
-    'ggrepel'
+    'matrixcalc',
+    'reshape2'
   )
   
   suppressMessages(sapply(requirements, require, character.only = TRUE))
