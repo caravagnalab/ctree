@@ -49,6 +49,7 @@
 #' @import reshape2
 #' @import clisymbols
 #' @import easypar
+#' @import entropy
 #'
 #' @examples
 #' 

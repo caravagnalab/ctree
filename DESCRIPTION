@@ -17,16 +17,17 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: 
-  pio,
-  easypar,
-  tidyverse,
-  tidygraph,
-  ggraph,
-  crayon,
-  igraph,
-  ggrepel,
-  RColorBrewer,
-  clisymbols
+    pio,
+    easypar,
+    tidyverse,
+    tidygraph,
+    ggraph,
+    crayon,
+    igraph,
+    ggrepel,
+    RColorBrewer,
+    clisymbols,
+    entropy
 Remotes: 
     caravagn/pio,
     caravagn/easypar

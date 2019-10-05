@@ -13,6 +13,7 @@
     'crayon',
     'clisymbols',
     'RColorBrewer',
+    'entropy',
     'ggrepel'
   )
   
