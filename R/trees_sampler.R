@@ -22,7 +22,7 @@ trees_sampler = function(CCF_clusters,
   
   if (nclusters == 1)
   {
-    cat(red('\nThis model has 1 node, it has trivial models.'))
+    cat(red('Sampler: this model has 1 node, it has trivial models.\n'))
     
     M = matrix(0, ncol = 1, nrow = 1)
     colnames(M) = rownames(M) = rownames(clusters)

@@ -124,6 +124,21 @@ ctree =
     # We begin to create a representation of the tree
     # =-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-
     
+    # Check that is must have drivers
+    has_drivers = nrow(drivers) > 0
+    if(!has_drivers) stop("No drivers are annotated in this clone tree, aborting.")
+    
+    # Handle the special case of empty matrix
+    is_monoclonal = (CCF_clusters$cluster %>% unique %>% length) == 1
+    
+    if(is_monoclonal == 1)
+    {
+      message('\nThis tree has 1 node, creating a monoclonal model disregarding the input matrix.')
+      
+      M = matrix(0, ncol = 1, nrow = 1)
+      colnames(M) = rownames(M) = CCF_clusters$cluster %>% unique
+    }
+    
     # Input can should be an adjacency matrix (which works also for monoclonal tumours)
     if (class(M) != 'matrix')
       stop("Input `M` should be an adjacency matrix, aborting.")
