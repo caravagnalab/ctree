@@ -61,6 +61,9 @@ trees_sampler = function(CCF_clusters,
     CONSENSUS.TREE = CONSENSUS$S
     WEIGHTS.CONSENSUS.TREE = CONSENSUS$weights
     
+    # print(CONSENSUS.TREE)
+    # print(WEIGHTS.CONSENSUS.TREE)
+    
     # # Sampling is carried out if there are more than 'sspace.cutoff' trees, in that case we
     # # sample 'n.sampling' possible trees. Otherwise all possible trees are generated.
     TREES = all.possible.trees(
