@@ -15,18 +15,21 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/caravagn/ctree.svg?branch=master)](https://travis-ci.org/caravagn/ctree)
-[![Codecov test coverage](https://codecov.io/gh/caravagn/ctree/branch/master/graph/badge.svg)](https://codecov.io/gh/caravagn/ctree?branch=master)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
-Thee `ctree` package provides a simple implementation of clone trees that can be build of Cancer Cell Franctions (CCFs) clusters computed by tumour subclonal deconvolution. This type of models can be used to study the evolutionary trajectories of a tumour from bulk sequencing data.
+Thee `ctree` package provides a simple implementation of *clones trees* in cancer.
 
-`ctree` is part of the `evoverse`, a package that gathers multiple R packages to implement 
-Cancer Evolution analyses; see more [about evoverse](https://caravagn.github.io/evoverse).
+clone trees that can be build of Cancer Cell Franctions (CCFs) clusters computed by tumour subclonal deconvolution. This type of models can be used to study the evolutionary trajectories of a tumour from bulk sequencing data.
 
-The package provides methods to create the trees as S3 objects, as well as a sampler to generate them 
-with a Monte Carlo strategy that have been first described in the [revolver](https://caravagn.github.io/revolver)
-algorithm. The package provides also functions to plot and analyze the trees.
+Clone trees can be built from Cancer Cell Franctions (CCFs) data reporting fraction of cancer cells harbouring a somatic mutation (usually, a single-nucleotide variant) across a number of tumour regions. This type of models can be used to study the evolutionary trajectories of a tumour from bulk sequencing data, especially in setups where one can generate whole-genome sequencing data.
+
+
+* `ctree` provides an S3-based implementation of mutation trees, as well as a Monte Carlo sampler that has been discussed in [Caravagna et al; PMID: 30171232](https://www.ncbi.nlm.nih.gov/pubmed/30171232). The package provides also functions to plot and analyze the trees.
+
+* The sibling of a clone tree is a *mutation tree*,  which is obtained from the analysis of binary absence/ presence profiles of somatic variants from bulk targeted panels; mutation trees are implemented in the [mtree package](https://caravagn.github.io/mtree).
+
+*  `mtree` is part of the `evoverse`, a [set of R packages](https://caravagn.github.io/evoverse) to implement Cancer Evolution analyses.
 
 #### Help and support
 
