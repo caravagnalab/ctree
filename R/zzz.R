@@ -34,11 +34,19 @@
   
   if (ctree_welcome_message)
   {
-    pio::pioHdr('ctree - Clone Trees in cancer')
-    pio::pioStr("Author : ",
-                "Giulio Caravagna <gcaravagn@gmail.com>",
-                suffix = '\n')
-    pio::pioStr("GitHub : ", "caravagn/ctree", suffix = '\n')
+    # pio::pioHdr('ctree - Clone Trees in cancer')
+    # pio::pioStr("Author : ",
+    #             "Giulio Caravagna <gcaravagn@gmail.com>",
+    #             suffix = '\n')
+    # pio::pioStr("GitHub : ", "caravagn/ctree", suffix = '\n')
+    
+    pk = 'ctree'
+    pk_l = 'Clone trees in cancer'
+    www = "https://caravagn.github.io/ctree/"
+    em = "gcaravagn@gmail.com"
+    
+    cli::cli_alert_success(
+      'Loading {.field {pk}}, {.emph \'{pk_l}\'}. Support : {.url { www}}' )
     
     options(ctree_welcome_message = FALSE)
   }
