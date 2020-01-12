@@ -4,9 +4,8 @@
 \alias{plot.ctree}
 \title{Plot a \code{ctree} tree.}
 \usage{
-\method{plot}{ctree}(x,
-  node_palette = colorRampPalette(RColorBrewer::brewer.pal(n = 9,
-  "Set1")), tree_layout = "tree", ...)
+plot.ctree(x, node_palette = colorRampPalette(RColorBrewer::brewer.pal(n
+  = 9, "Set1")), tree_layout = "tree", ...)
 }
 \arguments{
 \item{x}{A \code{ctree} tree.}
