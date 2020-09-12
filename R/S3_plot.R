@@ -18,7 +18,7 @@
 #'
 #' @return A \code{ggplot} plot of the tree.
 #'
-#' @export plot.ctree
+#' @export 
 #'
 #' @import crayon
 #' @import igraph
@@ -121,3 +121,4 @@ plot.ctree = function(x,
     
     return(mainplot)
 }
+

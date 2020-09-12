@@ -4,8 +4,11 @@
 \alias{plot_icon}
 \title{Plot the information transfe among clones in icon format (tiny).}
 \usage{
-plot_icon(x, node_palette = colorRampPalette(RColorBrewer::brewer.pal(n =
-  9, "Set1")), ...)
+plot_icon(
+  x,
+  node_palette = colorRampPalette(RColorBrewer::brewer.pal(n = 9, "Set1")),
+  ...
+)
 }
 \arguments{
 \item{x}{A \code{ctree} tree.}

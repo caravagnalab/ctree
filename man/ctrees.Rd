@@ -4,8 +4,15 @@
 \alias{ctrees}
 \title{Construct a `ctree` clone tree computing its structure.}
 \usage{
-ctrees(CCF_clusters, drivers, samples, patient, sspace.cutoff = 10000,
-  n.sampling = 5000, store.max = 100)
+ctrees(
+  CCF_clusters,
+  drivers,
+  samples,
+  patient,
+  sspace.cutoff = 10000,
+  n.sampling = 5000,
+  store.max = 100
+)
 }
 \arguments{
 \item{CCF_clusters}{Clusters of Cancer Cell Fractions available in the data of

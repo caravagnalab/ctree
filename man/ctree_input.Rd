@@ -4,7 +4,9 @@
 \name{ctree_input}
 \alias{ctree_input}
 \title{Example ctree dataset.}
-\format{A list of parameters to build a clone tree,}
+\format{
+A list of parameters to build a clone tree,
+}
 \usage{
 data(ctree_input)
 }

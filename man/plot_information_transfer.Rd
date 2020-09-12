@@ -4,9 +4,12 @@
 \alias{plot_information_transfer}
 \title{Plot the information transfer of a tree (drivers ordering).}
 \usage{
-plot_information_transfer(x,
-  node_palette = colorRampPalette(RColorBrewer::brewer.pal(n = 9,
-  "Set1")), tree_layout = "tree", ...)
+plot_information_transfer(
+  x,
+  node_palette = colorRampPalette(RColorBrewer::brewer.pal(n = 9, "Set1")),
+  tree_layout = "tree",
+  ...
+)
 }
 \arguments{
 \item{x}{A \code{ctree} tree.}
