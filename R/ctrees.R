@@ -87,7 +87,7 @@ ctrees = function(CCF_clusters,
          )
   
   # Sample structure for all trees
-  structures = trees_sampler(
+  structures = ctree:::trees_sampler(
     CCF_clusters,
     drivers,
     samples,
