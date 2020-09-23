@@ -44,11 +44,11 @@
 #' @import crayon
 #' @import clisymbols
 #' @import entropy
-#' @import matrixcalc
 #' @import reshape2
 #' @import clisymbols
 #' @import easypar
 #' @import entropy
+#' @importFrom matrixcalc hadamard.prod
 #'
 #' @examples
 #' 

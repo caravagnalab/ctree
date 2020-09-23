@@ -1,6 +1,6 @@
 Package: ctree
-Version: 0.01.1
-Date: 2019-9-28
+Version: 0.1.2
+Date: 2020-09-22
 Title: ctree - Clone Tree
 Type: Package
 Author: Giulio Caravagna
@@ -16,6 +16,8 @@ Description: This package provides an implementation for clone trees
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Depends:
+    R (>= 3.5.0),
 Imports: 
     pio,
     easypar,
