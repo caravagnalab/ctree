@@ -10,8 +10,6 @@ plot_CCF_clusters(x, ...)
 \item{x}{A \code{ctree} tree.}
 
 \item{...}{Extra parameters, not used.}
-
-\item{patient}{A patient id.}
 }
 \value{
 A \code{ggplot} plot.

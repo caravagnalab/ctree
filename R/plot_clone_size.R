@@ -16,7 +16,7 @@
 #'
 #' @param x A \code{ctree} tree.
 #' @param alpha_level Alpha level for the test, default is 0.05.
-#' @param ... Extra parameters, not used.
+# @param ... Extra parameters, not used.
 #'
 #' @return A \code{ggplot} plot.
 #' 

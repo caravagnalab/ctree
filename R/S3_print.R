@@ -12,7 +12,7 @@
 #'
 #' @export
 #'
-#' @import crayon
+#' @importFrom crayon green bgYellow red
 #'
 #' @examples
 #' data(ctree_input)

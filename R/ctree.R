@@ -13,7 +13,7 @@
 #' refer to the package vignette and the provided input datasets for more instructions.
 #' 
 #' @seealso This function requires the input tree to be specified in the
-#' format of an adjacency matrix; plese see function \code{\link{cctrees}} if you
+#' format of an adjacency matrix; plese see function \code{\link{ctrees}} if you
 #' need to create de novo also the adjacency matrices that fit your data.
 #' 
 #' @param CCF_clusters Clusters of Cancer Cell Fractions available in the data of
@@ -36,7 +36,10 @@
 #'
 #' @import tidyverse
 #' @import tidygraph
-#' @import crayon
+#' @import pio
+#' @import easypar
+#' @import dplyr
+#' @importFrom cli cli_alert_success
 #'
 #' @examples
 #' data('ctree_input')

@@ -8,12 +8,12 @@
 #' Reports some summary statistics for a \code{"rev_phylo"} object, 
 #' which is a bit more than just using \code{print.}
 #'
-#' @param x A \code{ctree} tree.
+#' @param object A \code{ctree} tree.
 #' @param ... Extra parameters
 #'
 #' @return None.
 #' @export summary.ctree
-#' @import crayon
+#' @exportS3Method summary ctree
 #'
 #' @examples
 #' data(ctree_input)
@@ -29,28 +29,28 @@
 #' )
 #' 
 #' summary(x[[1]])
-summary.ctree <- function(x, ...) {
-  print.ctree(x, ...)
+summary.ctree <- function(object, ...) {
+  print.ctree(object, ...)
   
   pio::pioStr("CCF clusters:",
               "",
               prefix = '\n',
               suffix = '\n\n')
-  print(x$CCF)
+  print(object$CCF)
   
   pio::pioStr("Drivers:",
               "",
               prefix = '\n',
               suffix = '\n\n')  
-  print(x$drivers)
+  print(object$drivers)
   
-  stat = stats.rev_phylo(x)
+  stat = stats.rev_phylo(object)
   
   pio::pioStr("Pigeonhole principle:",
-              green(
+              crayon::green(
                 nrow(stat$CCF.pigeonhole) * ncol(stat$CCF.pigeonhole) - stat$violations['pp']
               ),
-              red(stat$violations['pp']),
+              crayon::red(stat$violations['pp']),
               prefix = '\n',
               suffix = '\n\n')  
   print.noquote(stat$CCF.pigeonhole)
@@ -132,41 +132,41 @@ stats.rev_phylo = function(x)
 
 
 
-#'
-#' #' S3 method calling \code{\link{revolver_plt_tree}}.
-#' #'
-#' #' @param x An object of class \code{"rev_phylo"}.
-#' #' @param file Output file, or \code{NA}.
-#' #' @param palette RColorBrewer palette to colour clusters.
-#' #' @param cex Cex for the graph.
-#' #' @param alpha Transparency.
-#' #' @param verbose Output.
-#' #' @param ... Extra parameters
-#' #'
-#' #' @return Nothing
-#' #' @export plot.rev_phylo
-#' #' @import crayon
-#' #'
-#' #' @examples
-#' #' data(CRC.cohort)
-#' #' plot(CRC.cohort$phylogenies[['adenoma_3']][[1]])
-#' plot.rev_phylo = function(x,
-#'                           file = NA,
-#'                           palette = 'Set1',
-#'                           cex = 1,
-#'                           alpha = 0.7)
-#' {
-#'   revolver_plt_tree(
-#'     x,
-#'     file = file,
-#'     # edge.width = edge.width,
-#'     # edge.label = edge.label,
-#'     palette = palette,
-#'     cex = cex,
-#'     alpha = alpha
-#'   )
-#'   invisible(NULL)
-#' }
+#
+# #' S3 method calling \code{\link{revolver_plt_tree}}.
+# #'
+# #' @param x An object of class \code{"rev_phylo"}.
+# #' @param file Output file, or \code{NA}.
+# #' @param palette RColorBrewer palette to colour clusters.
+# #' @param cex Cex for the graph.
+# #' @param alpha Transparency.
+# #' @param verbose Output.
+# #' @param ... Extra parameters
+# #'
+# #' @return Nothing
+# #' @export plot.rev_phylo
+# #' @import crayon
+# #'
+# #' @examples
+# #' data(CRC.cohort)
+# #' plot(CRC.cohort$phylogenies[['adenoma_3']][[1]])
+# plot.rev_phylo = function(x,
+#                           file = NA,
+#                           palette = 'Set1',
+#                           cex = 1,
+#                           alpha = 0.7)
+# {
+#   revolver_plt_tree(
+#     x,
+#     file = file,
+#     # edge.width = edge.width,
+#     # edge.label = edge.label,
+#     palette = palette,
+#     cex = cex,
+#     alpha = alpha
+#   )
+#   invisible(NULL)
+# }
 
 # # a-la-dictionary
 # driver = function(x, c) {

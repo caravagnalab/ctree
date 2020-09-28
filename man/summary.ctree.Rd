@@ -4,10 +4,10 @@
 \alias{summary.ctree}
 \title{Summary of a \code{"ctree"} object.}
 \usage{
-\method{summary}{ctree}(x, ...)
+\method{summary}{ctree}(object, ...)
 }
 \arguments{
-\item{x}{A \code{ctree} tree.}
+\item{object}{A \code{ctree} tree.}
 
 \item{...}{Extra parameters}
 }

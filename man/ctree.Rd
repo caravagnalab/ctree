@@ -88,6 +88,6 @@ print(y)
 }
 \seealso{
 This function requires the input tree to be specified in the
-format of an adjacency matrix; plese see function \code{\link{cctrees}} if you
+format of an adjacency matrix; plese see function \code{\link{ctrees}} if you
 need to create de novo also the adjacency matrices that fit your data.
 }
