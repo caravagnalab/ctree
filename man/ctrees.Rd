@@ -38,13 +38,6 @@ trees are sampled and scored.}
 \item{store.max}{When a number of trees are generated, scored and ranked, a maximum
 of \code{store.max} are returned to the user (these are selected following the 
 ranking).}
-
-\item{M}{The adjacency matrix defined to connect all the nodes of this tree.}
-
-\item{score}{A scalar score that can be associated to this tree.}
-
-\item{annotation}{Any string annotation that one wants to add to this `ctree`.
-This will be used by some of the plotting functions that display `ctree` objects.}
 }
 \value{
 An list of objects of class \code{"ctree"} that represent the trees that 

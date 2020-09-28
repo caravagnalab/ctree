@@ -20,12 +20,13 @@
 #'
 #' @export 
 #'
-#' @import crayon
-#' @import igraph
 #' @import tidygraph
 #' @import ggraph
 #' @import ggrepel
 #' @import RColorBrewer
+#' @import ggplot2 
+#' @importFrom igraph topo_sort graph_from_adjacency_matrix
+#' @importFrom grid unit
 #'
 #' @examples
 #' data('ctree_input')

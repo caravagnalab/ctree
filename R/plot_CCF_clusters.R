@@ -7,7 +7,7 @@
 #' colour the heatmap (`NA` values are in light gray).
 #'
 #' @param x A \code{ctree} tree.
-#' @param patient A patient id.
+# @param patient A patient id.
 #' @param ... Extra parameters, not used.
 #'
 #' @return A \code{ggplot} plot.

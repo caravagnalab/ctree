@@ -2,8 +2,12 @@ Package: ctree
 Version: 0.1.2
 Date: 2020-09-22
 Title: ctree - Clone Tree
-Type: Package
-Author: Giulio Caravagna
+Authors@R: c(
+    person("Giulio", "Caravagna", , "gcaravagn@gmail.com", role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0003-4240-3265")),
+    person("Luca", "De Sano", , "luca.desano@gmail.com", role = c("ctb"),
+      comment = c(ORCID = "0000-0002-9618-3774"))
+  )
 Maintainer: Giulio Caravagna <gcaravagn@gmail.com>
 Description: This package provides an implementation for clone trees
   that can be build of Cancer Cell Franctions (CCFs) clusters computed by
@@ -31,7 +35,11 @@ Imports:
     clisymbols,
     entropy,
     matrixcalc,
-    reshape2
+    reshape2,
+    dplyr,
+    ggplot2,
+    grid,
+    cli
 Remotes: 
     caravagn/pio,
     caravagn/easypar

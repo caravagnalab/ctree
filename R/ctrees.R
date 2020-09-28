@@ -21,10 +21,10 @@
 #' @param samples A vector of samples names (e.g., the biopsies sequenced for
 #' this patient).
 #' @param patient A string id that represent this patient. 
-#' @param M The adjacency matrix defined to connect all the nodes of this tree.
-#' @param score A scalar score that can be associated to this tree.
-#' @param annotation Any string annotation that one wants to add to this `ctree`.
-#' This will be used by some of the plotting functions that display `ctree` objects.
+# @param M The adjacency matrix defined to connect all the nodes of this tree.
+# @param score A scalar score that can be associated to this tree.
+# @param annotation Any string annotation that one wants to add to this `ctree`.
+# This will be used by some of the plotting functions that display `ctree` objects.
 #' @param sspace.cutoff If there are less than this number of tree available, all the
 #' structures are examined in an exhaustive fashion. Otherwise, if there are more than
 #' this, a Monte Carlo sampler is used.
@@ -41,7 +41,6 @@
 #'
 #' @import tidyverse
 #' @import tidygraph
-#' @import crayon
 #' @import clisymbols
 #' @import entropy
 #' @import reshape2
@@ -87,7 +86,7 @@ ctrees = function(CCF_clusters,
          )
   
   # Sample structure for all trees
-  structures = ctree:::trees_sampler(
+  structures = trees_sampler(
     CCF_clusters,
     drivers,
     samples,

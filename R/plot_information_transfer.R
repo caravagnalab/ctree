@@ -17,7 +17,6 @@
 #' @return A \code{ggplot} object for the plot.
 #' 
 #' @import tidygraph
-#' @import crayon
 #' @import ggraph
 #' 
 #' @export

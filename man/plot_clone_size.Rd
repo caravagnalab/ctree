@@ -10,8 +10,6 @@ plot_clone_size(x, alpha_level = 0.05)
 \item{x}{A \code{ctree} tree.}
 
 \item{alpha_level}{Alpha level for the test, default is 0.05.}
-
-\item{...}{Extra parameters, not used.}
 }
 \value{
 A \code{ggplot} plot.
