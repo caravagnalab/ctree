@@ -18,7 +18,8 @@
 #'
 #' @return A \code{ggplot} plot of the tree.
 #'
-#' @export 
+#' @export plot.ctree
+#' @exportS3Method plot ctree
 #'
 #' @import tidygraph
 #' @import ggraph

@@ -10,7 +10,8 @@
 #'
 #' @return Nothing
 #'
-#' @export
+#' @export print.ctree
+#' @exportS3Method print ctree
 #'
 #' @importFrom crayon green bgYellow red
 #'
