@@ -40,6 +40,9 @@
 #' @import easypar
 #' @import dplyr
 #' @importFrom cli cli_alert_success
+#' @importFrom grDevices colorRampPalette
+#' @importFrom stats pnorm sd
+#' @importFrom utils capture.output combn
 #'
 #' @examples
 #' data('ctree_input')

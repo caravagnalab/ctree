@@ -39,7 +39,10 @@ Imports:
     dplyr,
     ggplot2,
     grid,
-    cli
+    cli,
+    grDevices,
+    stats,
+    utils
 Remotes: 
     caravagn/pio,
     caravagn/easypar
