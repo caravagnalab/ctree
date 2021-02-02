@@ -22,7 +22,7 @@ trees_sampler = function(CCF_clusters,
   
   if (nclusters == 1)
   {
-    cat(red('Sampler: this model has 1 node, it has trivial models.\n'))
+    cli::cli_alert_warning('Model with 1 node, trivial trees returned')
     
     M = matrix(0, ncol = 1, nrow = 1)
     colnames(M) = rownames(M) = rownames(clusters)
@@ -43,11 +43,15 @@ trees_sampler = function(CCF_clusters,
       sum(sapply(w, nrow) > 0)
     })
     
-    pio::pioStr(
-      " Trees per region", 
-      paste(numSol, collapse = ', '),
-      prefix = crayon::green(clisymbols::symbol$tick),
-      suffix = '\n')
+    # pio::pioStr(
+    #   " Trees per region", 
+    #   paste(numSol, collapse = ', '),
+    #   prefix = crayon::green(clisymbols::symbol$tick),
+    #   suffix = '\n')
+    
+    cli::cli_alert_success(
+      "Trees per region {.field {paste(numSol, collapse = ', ')}}"
+    )
     
     ################## Build all possible clonal trees
     # 1) hash them
@@ -107,17 +111,18 @@ trees_sampler = function(CCF_clusters,
     penalty.CCF.direction = 1
     
     # 4) Compute the branching penalty  --  this is done for each tree that we are considering
-    pio::pioStr(
-      " Pigeonhole Principle",
-      prefix = crayon::green(clisymbols::symbol$tick),
-      suffix = '\n')
+    # pio::pioStr(
+    #   " Pigeonhole Principle",
+    #   prefix = crayon::green(clisymbols::symbol$tick),
+    #   suffix = '\n')
     
     penalty.CCF.branching = node.penalty.for.branching(TREES, df_clusters)
     
-    pio::pioStr(
-      " Ranking trees",
-      prefix = crayon::green(clisymbols::symbol$tick),
-      suffix = '\n')
+    cli::cli_h3("\nRanking trees")
+    # pio::pioStr(
+    #   " Ranking trees",
+    #   prefix = crayon::green(clisymbols::symbol$tick),
+    #   suffix = '\n')
     
     RANKED = rankTrees(TREES, MI.table, penalty.CCF.branching)
     TREES = RANKED$TREES

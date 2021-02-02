@@ -208,10 +208,20 @@ ClonEvol_surrogate = function(clusters, samples, clonal.cluster, min.CCF = 0.01)
                    # CCF for this sample, we consider only clusters values above 1% CCF
                    # w = w[w > min.CCF]
 
-                   pio::pioStr(
-                     " Region", regname, ' ~ ', "#CCF clusters > 1%: ", length(w), 
-                     prefix = crayon::green(clisymbols::symbol$tick),
-                     suffix = '\n')
+                   # pio::pioStr(
+                   #   " Region", regname, ' ~ ', "#CCF clusters > 1%: ", length(w), 
+                   #   prefix = crayon::green(clisymbols::symbol$tick),
+                   #   suffix = '\n')
+                  
+                   # cli::cli_alert(
+                   #   "{.field {regname}} ~ {.count {length(w)}} CCF clusters >1%."
+                   # )
+                   
+                   # pio::pioStr(
+                   #   " Region", regname, ' ~ ', "#CCF clusters > 1%: ", length(w), 
+                   #   prefix = crayon::green(clisymbols::symbol$tick),
+                   #   suffix = '\n')
+                   
                    
                    # tree -- default case with no tree
                    TR = list(data.frame(from = NULL, to = NULL))

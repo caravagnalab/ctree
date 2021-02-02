@@ -33,10 +33,16 @@ hashTrees = function(clonevol.obj, sample.groups)
 
   # cat('Total trees  :', nrow(trees), '\n')
   # cat('Unique trees : ', length(unique(trees$model)), '\n')
-  pio::pioStr(
-    " Hashed trees", length(unique(trees$model)), 
-    prefix = crayon::green(clisymbols::symbol$tick),
-    suffix = '\n')
+  # pio::pioStr(
+  #   " Hashed trees", length(unique(trees$model)), 
+  #   prefix = crayon::green(clisymbols::symbol$tick),
+  #   suffix = '\n')
+  
+  # pio::pioStr(
+  #   " Hashed trees", length(unique(trees$model)), 
+  #   prefix = crayon::green(clisymbols::symbol$tick),
+  #   suffix = '\n')
+  
   
   trees$model = as.factor(trees$model)
 
@@ -124,16 +130,23 @@ all.possible.trees = function(
     
     ex_search = ifelse(
       combalternatives < sspace.cutoff,
-      "exahustive",
-      paste0('Montecarlo for ', n.sampling, 'distinct trees')
+      "exahustive" %>% crayon::bold(),
+      paste0('Monte Carlo for ', n.sampling, 'distinct trees') %>% crayon::bold()
     )
     
     # print(ex_search)
     
-    pio::pioStr(
-      " Structures", combalternatives,  '- search is', ex_search,
-      prefix = crayon::green(clisymbols::symbol$tick),
-      suffix = '\n')
+    # if(combalternatives < sspace.cutoff)
+    #   cli::cli
+    
+    cli::cli_alert_info(
+      "Total {.field {combalternatives}} tree structures - search is {.count {ex_search}}")
+    
+    # 
+    # pio::pioStr(
+    #   " Structures", combalternatives,  '- search is', ex_search,
+    #   prefix = crayon::green(clisymbols::symbol$tick),
+    #   suffix = '\n')
     
     
 

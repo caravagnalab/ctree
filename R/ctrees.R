@@ -76,14 +76,27 @@ ctrees = function(CCF_clusters,
   
   # TODO - check input formats
   
-  pio::pioHdr(paste("ctree ~ generate clone trees for", patient))
+  pio::pioHdr(paste("ctree ~ clone trees generator for", patient))
   
-  pioStr('Sampler : ', 
-         sspace.cutoff, '(cutoff), ', 
-         n.sampling, '(sampling), ',
-         store.max, '(max store)',
-         suffix = '\n'
-         )
+  cat("\n")
+  
+  # cli::cli_alert_info(paste(
+  #   "Sampling ",
+  #   ifelse(
+  #     options$ONLY.DRIVER == 0,
+  #     'only driver' %>% crayon::bold(),
+  #     'all annotated' %>% crayon::bold()
+  #   ),
+  #   'mutations. '
+  # ))
+  
+  
+  # pioStr('Sampler : ', 
+  #        sspace.cutoff, '(cutoff), ', 
+  #        n.sampling, '(sampling), ',
+  #        store.max, '(max store)',
+  #        suffix = '\n'
+  #        )
   
   # Sample structure for all trees
   structures = trees_sampler(
@@ -100,13 +113,19 @@ ctrees = function(CCF_clusters,
   SCORES = structures[[2]]
   
   # Trees assembly 
+  b = paste(min(length(TREES), store.max)) %>% crayon::bold()
   
-  pio::pioStr(
-    " Trees with non-zero sscore",
-    length(TREES), 'storing',
-    min(length(TREES), store.max),
-    prefix = crayon::green(clisymbols::symbol$tick),
-    suffix = '\n')
+  cli::cli_alert_success(
+    "{.field {length(TREES)}}  trees with non-zero score, storing {.count {b}}"
+    )
+  
+  
+  # pio::pioStr(
+  #   " Trees with non-zero sscore",
+  #   length(TREES), 'storing',
+  #   min(length(TREES), store.max),
+  #   prefix = crayon::green(clisymbols::symbol$tick),
+  #   suffix = '\n')
   
   if(length(TREES) > store.max)
   {
