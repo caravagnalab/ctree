@@ -82,14 +82,17 @@
 </h1></div>
 <!-- badges: start -->
 
+
+
+<!-- badges: end -->
 <p>Thee <code>ctree</code> package provides a simple implementation of <em>clones trees</em> in cancer.</p>
 <p>clone trees that can be build of Cancer Cell Franctions (CCFs) clusters computed by tumour subclonal deconvolution. This type of models can be used to study the evolutionary trajectories of a tumour from bulk sequencing data.</p>
 <p>Clone trees can be built from Cancer Cell Franctions (CCFs) data reporting fraction of cancer cells harbouring a somatic mutation (usually, a single-nucleotide variant) across a number of tumour regions. This type of models can be used to study the evolutionary trajectories of a tumour from bulk sequencing data, especially in setups where one can generate whole-genome sequencing data.</p>
 <ul>
 <li><p><code>ctree</code> provides an S3-based implementation of mutation trees, as well as a Monte Carlo sampler that has been discussed in <a href="https://www.ncbi.nlm.nih.gov/pubmed/30171232">Caravagna et al; PMID: 30171232</a>. The package provides also functions to plot and analyze the trees.</p></li>
 <li><p>The sibling of a clone tree is a <em>mutation tree</em>, which is obtained from the analysis of binary absence/ presence profiles of somatic variants from bulk targeted panels; mutation trees are implemented in the <a href="https://caravagn.github.io/mtree">mtree package</a>.</p></li>
-<li><p><code>ctree</code> is part of the <code>evoverse</code>, a <a href="https://caravagn.github.io/evoverse">set of R packages</a> to implement Cancer Evolution analyses.</p></li>
 </ul>
+<p><code>ctree</code> is part of the <code>evoverse</code>, a <a href="https://caravagn.github.io/evoverse">set of R packages</a> to implement Cancer Evolution analyses.</p>
 <div id="help-and-support" class="section level4">
 <h4 class="hasAnchor">
 <a href="#help-and-support" class="anchor"></a>Help and support</h4>
@@ -132,9 +135,9 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/caravagn/ctree"><img src="https://travis-ci.org/caravagn/ctree.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
-<li><a href="https://caravagn.github.io/evoverse"><img src="https://img.shields.io/badge/Part%20of-evoverse-blue.svg"></a></li>
+<li><a href="https://github.com/caravagnalab/ctree/actions"><img src="https://github.com/caravagnalab/ctree/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/caravagnalab/ctree/actions/workflows/pkgdown.yaml"><img src="https://github.com/caravagnalab/ctree/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-green.svg" alt="Lifecycle: stable"></a></li>
 </ul>
 </div>
 </div>
