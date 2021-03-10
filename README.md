@@ -3,11 +3,13 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.org/caravagn/ctree.svg?branch=master)](https://travis-ci.org/caravagn/ctree)
+[![R-CMD-check](https://github.com/caravagnalab/ctree/workflows/R-CMD-check/badge.svg)](https://github.com/caravagnalab/ctree/actions)
+
+[![pkgdown](https://github.com/caravagnalab/ctree/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/caravagnalab/ctree/actions/workflows/pkgdown.yaml)
+
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![](https://img.shields.io/badge/Part%20of-evoverse-blue.svg)](https://caravagn.github.io/evoverse)
+stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
+
 <!-- badges: end -->
 
 Thee `ctree` package provides a simple implementation of *clones trees*
@@ -25,27 +27,26 @@ regions. This type of models can be used to study the evolutionary
 trajectories of a tumour from bulk sequencing data, especially in setups
 where one can generate whole-genome sequencing data.
 
-  - `ctree` provides an S3-based implementation of mutation trees, as
+-   `ctree` provides an S3-based implementation of mutation trees, as
     well as a Monte Carlo sampler that has been discussed in [Caravagna
-    et al;
-    PMID: 30171232](https://www.ncbi.nlm.nih.gov/pubmed/30171232). The
-    package provides also functions to plot and analyze the trees.
+    et al; PMID:
+    30171232](https://www.ncbi.nlm.nih.gov/pubmed/30171232). The package
+    provides also functions to plot and analyze the trees.
 
-  - The sibling of a clone tree is a *mutation tree*, which is obtained
+-   The sibling of a clone tree is a *mutation tree*, which is obtained
     from the analysis of binary absence/ presence profiles of somatic
     variants from bulk targeted panels; mutation trees are implemented
     in the [mtree package](https://caravagn.github.io/mtree).
 
-  - `ctree` is part of the `evoverse`, a [set of R
-    packages](https://caravagn.github.io/evoverse) to implement Cancer
-    Evolution
-analyses.
+`ctree` is part of the `evoverse`, a [set of R
+packages](https://caravagn.github.io/evoverse) to implement Cancer
+Evolution analyses.
 
 #### Help and support
 
 [![](https://img.shields.io/badge/GitHub%20Pages-https://caravagn.github.io/ctree/-yellow.svg)](https://caravagn.github.io/ctree)
 
------
+------------------------------------------------------------------------
 
 ### Installation
 
@@ -57,12 +58,11 @@ You can install the released version of `ctree` from
 devtools::install_github("caravagn/ctree")
 ```
 
------
+------------------------------------------------------------------------
 
 #### Copyright and contacts
 
-Giulio Caravagna, PhD. *Institute of Cancer Research, London,
-UK*.
+Giulio Caravagna, PhD. *Institute of Cancer Research, London, UK*.
 
 [![](https://img.shields.io/badge/Email-gcaravagn@gmail.com-seagreen.svg)](mailto:gcaravagn@gmail.com)
 [![](https://img.shields.io/badge/Github-caravagn-seagreen.svg)](https://github.com/caravagn)
