@@ -61,13 +61,13 @@ ctree_input$patient
 You can use a sampler and control its parameters -- see `~ctrees`.
 ```{r}
 x = ctrees(
-  ctree_input$CCF_clusters, 
-  ctree_input$drivers,
-  ctree_input$samples,
-  ctree_input$patient,
-  ctree_input$sspace.cutoff,
-  ctree_input$n.sampling,
-  ctree_input$store.max
+  CCF_clusters = ctree_input$CCF_clusters, 
+  drivers = ctree_input$drivers,
+  samples = ctree_input$samples,
+  patient = ctree_input$patient,
+  sspace.cutoff = ctree_input$sspace.cutoff,
+  n.sampling = ctree_input$n.sampling,
+  store.max = ctree_input$store.max
 )
 ```
 

@@ -234,13 +234,17 @@ ClonEvol_surrogate = function(clusters, samples, clonal.cluster, min.CCF = 0.01)
                      # check the clonal cluster
                      subclonal.clusters = setdiff(names(w), clonal.cluster)
                      
-                     if(is.na(length(subclonal.clusters) > 0 & !all(w[clonal.cluster] >= w[subclonal.clusters]))) {
+                     if (is.na(length(subclonal.clusters) > 0 &
+                               !all(w[clonal.cluster] >= w[subclonal.clusters]))) {
+                       warning('print some message and exit')
+                     } else if (length(subclonal.clusters) > 0 &
+                                !all(w[clonal.cluster] >= w[subclonal.clusters])) {
                        warning(
-                         'print some message and exit')
-                     } else if(length(subclonal.clusters) > 0 & !all(w[clonal.cluster] >= w[subclonal.clusters])) {
-                       warning(
-                         '[CORRECTION] The clonal cluster has CCF ', w[clonal.cluster],
-                         ', lower than a subclonal cluster; we set it to the max in the sample...')
+                         '[CORRECTION] The clonal cluster has CCF ',
+                         w[clonal.cluster],
+                         ', lower than a subclonal cluster; we set it to the max in the sample...'
+                       )
+                     }
                        
                        w[clonal.cluster] = max(w) + 0.01
                        
@@ -250,7 +254,11 @@ ClonEvol_surrogate = function(clusters, samples, clonal.cluster, min.CCF = 0.01)
                        # turn them into the format that the tools expects and remove the temporary WL node
                        TR = lapply(TR, MatrixToDataFrame)
                        TR = lapply(TR, function(y){ y = y[y$from != 'WL', , drop = FALSE] })
-                     }
+                       
+                       # print(TR)
+                       
+                       return(TR)
+                     
                    }
                    else {
                      warning('[SKIP] One region does not have at least 2 CCF clusters above 1%, and will be skipped.')

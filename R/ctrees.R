@@ -98,15 +98,16 @@ ctrees = function(CCF_clusters,
   #        suffix = '\n'
   #        )
   
+  
   # Sample structure for all trees
   structures = trees_sampler(
-    CCF_clusters,
-    drivers,
-    samples,
-    patient,
-    sspace.cutoff,
-    n.sampling,
-    store.max
+    CCF_clusters = CCF_clusters,
+    drivers = drivers,
+    samples = samples,
+    patient = patient,
+    sspace.cutoff = sspace.cutoff,
+    n.sampling = n.sampling,
+    store.max = store.max
   )
   
   TREES = structures[[1]]
