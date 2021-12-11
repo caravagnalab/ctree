@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ctree</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/ctree.html">Get started</a>
 </li>
@@ -82,49 +78,47 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># To render in colour this vignette</span>
-<span class="va">old.hooks</span> <span class="op">&lt;-</span> <span class="fu">fansi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fansi/man/set_knit_hooks.html">set_knit_hooks</a></span><span class="op">(</span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/knit_hooks.html">knit_hooks</a></span><span class="op">)</span></code></pre></div>
+<span class="va">old.hooks</span> <span class="op">&lt;-</span> <span class="fu">fansi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fansi/man/set_knit_hooks.html" class="external-link">set_knit_hooks</a></span><span class="op">(</span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/knit_hooks.html" class="external-link">knit_hooks</a></span><span class="op">)</span></code></pre></div>
 <style type="text/css" scoped>
 PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </style>
-<p>The <code>ctree</code> is a package to implement basic functions to create, manipulate and visualize clone trees. A clone tree is a tree built from the results of a subclonal deconvolution analysis of bulk DNA sequencing data. The trees created with <code>ctree</code> are used inside <a href="https://github.com/caravagn/revolver">REVOLVER</a>, a package that implements one algorithm to determine <a href="https://www.nature.com/articles/s41592-018-0108-x">repeated cancer evolution from multi-region sequencing data of human cancers</a>.</p>
+<p>The <code>ctree</code> is a package to implement basic functions to create, manipulate and visualize clone trees. A clone tree is a tree built from the results of a subclonal deconvolution analysis of bulk DNA sequencing data. The trees created with <code>ctree</code> are used inside <a href="https://github.com/caravagn/revolver" class="external-link">REVOLVER</a>, a package that implements one algorithm to determine <a href="https://www.nature.com/articles/s41592-018-0108-x" class="external-link">repeated cancer evolution from multi-region sequencing data of human cancers</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ctree</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ctree</span><span class="op">)</span></code></pre></div>
 <p>To build a clone tree you need some basic datal; an example dataset is attached to the package and can be used to create a <code>ctree</code> S3 object.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">'ctree_input'</span><span class="op">)</span></code></pre></div>
-<div id="required-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#required-data" class="anchor"></a>Required data</h3>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">'ctree_input'</span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="required-data">Required data<a class="anchor" aria-label="anchor" href="#required-data"></a>
+</h3>
 <p><strong>Cancer Cell Fractions</strong></p>
 <p>Cancer Cell Fractions (CCF) clusters obtained from subclonal deconvolution analysis of bulk DNA sequencing data are required,</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ctree_input</span><span class="op">$</span><span class="va">CCF_clusters</span></code></pre></div>
-<pre class="fansi fansi-output"><code>#&gt; <span style="color: #555555;"># A tibble: 7 x 7</span><span>
-#&gt;   cluster nMuts is.driver is.clonal    R1    R2    R3
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> 1          72 TRUE      FALSE      0     0.92  0   
-#&gt; </span><span style="color: #555555;">2</span><span> 2          69 TRUE      TRUE       0.99  0.98  0.99
-#&gt; </span><span style="color: #555555;">3</span><span> 3          48 FALSE     FALSE      0     0     0.49
-#&gt; </span><span style="color: #555555;">4</span><span> 4          29 FALSE     FALSE      0.01  0.01  0.93
-#&gt; </span><span style="color: #555555;">5</span><span> 5          24 TRUE      FALSE      0.78  0     0   
-#&gt; </span><span style="color: #555555;">6</span><span> 6          23 TRUE      FALSE      0.98  0.03  0.98
-#&gt; </span><span style="color: #555555;">7</span><span> 7          15 FALSE     FALSE      0     0.41  0
-</span></code></pre>
-<p>If you need tools to compute CCF values, the <a href="https://caravagn.github.io/evoverse/">evoverse</a> collection of packages for Cancer Evolution analysis contains both <a href="https://caravagn.github.io/mobster/">MOBSTER</a> and <a href="https://caravagn.github.io/viber/">VIBER</a>. Otherwise, a number of other packages can be used (pyClone, sciClone, DPClust, etc.).</p>
+<pre class="fansi fansi-output"><code><span class="co">#&gt; # A tibble: 7 × 7</span>
+<span class="co">#&gt;   cluster nMuts is.driver is.clonal    R1    R2    R3</span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;lgl&gt;     &lt;lgl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1          72 TRUE      FALSE      0     0.92  0   </span>
+<span class="co">#&gt; 2 2          69 TRUE      TRUE       0.99  0.98  0.99</span>
+<span class="co">#&gt; 3 3          48 FALSE     FALSE      0     0     0.49</span>
+<span class="co">#&gt; 4 4          29 FALSE     FALSE      0.01  0.01  0.93</span>
+<span class="co">#&gt; 5 5          24 TRUE      FALSE      0.78  0     0   </span>
+<span class="co">#&gt; 6 6          23 TRUE      FALSE      0.98  0.03  0.98</span>
+<span class="co">#&gt; 7 7          15 FALSE     FALSE      0     0.41  0</span></code></pre>
+<p>If you need tools to compute CCF values, the <a href="https://caravagn.github.io/evoverse/" class="external-link">evoverse</a> collection of packages for Cancer Evolution analysis contains both <a href="https://caravagn.github.io/mobster/" class="external-link">MOBSTER</a> and <a href="https://caravagn.github.io/viber/" class="external-link">VIBER</a>. Otherwise, a number of other packages can be used (pyClone, sciClone, DPClust, etc.).</p>
 <p>Driver events mapped to the CCF clusters, with reported clonality status, a <code>variantID</code> and a <code>patientID.</code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ctree_input</span><span class="op">$</span><span class="va">drivers</span></code></pre></div>
-<pre class="fansi fansi-output"><code>#&gt; <span style="color: #555555;"># A tibble: 7 x 8</span><span>
-#&gt;   patientID variantID is.driver is.clonal cluster    R1    R2    R3
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> CRUK0002  RB1       TRUE      FALSE     1        0     0.92  0   
-#&gt; </span><span style="color: #555555;">2</span><span> CRUK0002  IKZF1     TRUE      FALSE     1        0     0.92  0   
-#&gt; </span><span style="color: #555555;">3</span><span> CRUK0002  KRAS      TRUE      FALSE     1        0     0.93  0   
-#&gt; </span><span style="color: #555555;">4</span><span> CRUK0002  MET       TRUE      TRUE      2        0.99  0.98  0.99
-#&gt; </span><span style="color: #555555;">5</span><span> CRUK0002  TERT      TRUE      TRUE      2        0.99  0.98  0.99
-#&gt; </span><span style="color: #555555;">6</span><span> CRUK0002  NF1       TRUE      FALSE     5        0.78  0     0   
-#&gt; </span><span style="color: #555555;">7</span><span> CRUK0002  EP300     TRUE      FALSE     6        0.96  0.03  0.98
-</span></code></pre>
+<pre class="fansi fansi-output"><code><span class="co">#&gt; # A tibble: 7 × 8</span>
+<span class="co">#&gt;   patientID variantID is.driver is.clonal cluster    R1    R2    R3</span>
+<span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;lgl&gt;     &lt;lgl&gt;     &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 CRUK0002  RB1       TRUE      FALSE     1        0     0.92  0   </span>
+<span class="co">#&gt; 2 CRUK0002  IKZF1     TRUE      FALSE     1        0     0.92  0   </span>
+<span class="co">#&gt; 3 CRUK0002  KRAS      TRUE      FALSE     1        0     0.93  0   </span>
+<span class="co">#&gt; 4 CRUK0002  MET       TRUE      TRUE      2        0.99  0.98  0.99</span>
+<span class="co">#&gt; 5 CRUK0002  TERT      TRUE      TRUE      2        0.99  0.98  0.99</span>
+<span class="co">#&gt; 6 CRUK0002  NF1       TRUE      FALSE     5        0.78  0     0   </span>
+<span class="co">#&gt; 7 CRUK0002  EP300     TRUE      FALSE     6        0.96  0.03  0.98</span></code></pre>
 <p><strong>Other data</strong></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ctree_input</span><span class="op">$</span><span class="va">samples</span>
@@ -132,180 +126,183 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="va">ctree_input</span><span class="op">$</span><span class="va">patient</span>
 <span class="co">#&gt; [1] "CUK12345"</span></code></pre></div>
 </div>
-<div id="creation-of-a-clone-tree" class="section level3">
-<h3 class="hasAnchor">
-<a href="#creation-of-a-clone-tree" class="anchor"></a>Creation of a clone tree</h3>
+<div class="section level3">
+<h3 id="creation-of-a-clone-tree">Creation of a clone tree<a class="anchor" aria-label="anchor" href="#creation-of-a-clone-tree"></a>
+</h3>
 <p>You can use a sampler and control its parameters – see <code>~ctrees</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="../reference/ctrees.html">ctrees</a></span><span class="op">(</span>
-  <span class="va">ctree_input</span><span class="op">$</span><span class="va">CCF_clusters</span>, 
-  <span class="va">ctree_input</span><span class="op">$</span><span class="va">drivers</span>,
-  <span class="va">ctree_input</span><span class="op">$</span><span class="va">samples</span>,
-  <span class="va">ctree_input</span><span class="op">$</span><span class="va">patient</span>,
-  <span class="va">ctree_input</span><span class="op">$</span><span class="va">sspace.cutoff</span>,
-  <span class="va">ctree_input</span><span class="op">$</span><span class="va">n.sampling</span>,
-  <span class="va">ctree_input</span><span class="op">$</span><span class="va">store.max</span>
+  CCF_clusters <span class="op">=</span> <span class="va">ctree_input</span><span class="op">$</span><span class="va">CCF_clusters</span>, 
+  drivers <span class="op">=</span> <span class="va">ctree_input</span><span class="op">$</span><span class="va">drivers</span>,
+  samples <span class="op">=</span> <span class="va">ctree_input</span><span class="op">$</span><span class="va">samples</span>,
+  patient <span class="op">=</span> <span class="va">ctree_input</span><span class="op">$</span><span class="va">patient</span>,
+  sspace.cutoff <span class="op">=</span> <span class="va">ctree_input</span><span class="op">$</span><span class="va">sspace.cutoff</span>,
+  n.sampling <span class="op">=</span> <span class="va">ctree_input</span><span class="op">$</span><span class="va">n.sampling</span>,
+  store.max <span class="op">=</span> <span class="va">ctree_input</span><span class="op">$</span><span class="va">store.max</span>
 <span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code>#&gt; <span style="color: #BBBBBB;background-color: #0000BB;"> [ ctree ~ clone trees generator for CUK12345 ] 
-#&gt; </span><span>
-#&gt; </span><span style="color: #555555;"># A tibble: 7 x 7</span><span>
-#&gt;   cluster nMuts is.driver is.clonal    R1    R2    R3
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> 1          72 TRUE      FALSE      0     0.92  0   
-#&gt; </span><span style="color: #555555;">2</span><span> 2          69 TRUE      TRUE       0.99  0.98  0.99
-#&gt; </span><span style="color: #555555;">3</span><span> 3          48 FALSE     FALSE      0     0     0.49
-#&gt; </span><span style="color: #555555;">4</span><span> 4          29 FALSE     FALSE      0.01  0.01  0.93
-#&gt; </span><span style="color: #555555;">5</span><span> 5          24 TRUE      FALSE      0.78  0     0   
-#&gt; </span><span style="color: #555555;">6</span><span> 6          23 TRUE      FALSE      0.98  0.03  0.98
-#&gt; </span><span style="color: #555555;">7</span><span> 7          15 FALSE     FALSE      0     0.41  0
-</span></code></pre>
-<pre><code>#&gt; [32m✔[39m Trees per region [32m[32m1, 3, 1[32m[39m
-#&gt; [36mℹ[39m Total [32m[32m3[32m[39m tree structures - search is [1mexahustive[22m
-#&gt; 
-#&gt; ── Ranking trees
-#&gt; [32m✔[39m [32m[32m3[32m[39m  trees with non-zero score, storing [1m3[22m</code></pre>
+<pre class="fansi fansi-output"><code><span class="co">#&gt;  [ ctree ~ clone trees generator for CUK12345 ] </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; # A tibble: 7 × 7</span>
+<span class="co">#&gt;   cluster nMuts is.driver is.clonal    R1    R2    R3</span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;lgl&gt;     &lt;lgl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1          72 TRUE      FALSE      0     0.92  0   </span>
+<span class="co">#&gt; 2 2          69 TRUE      TRUE       0.99  0.98  0.99</span>
+<span class="co">#&gt; 3 3          48 FALSE     FALSE      0     0     0.49</span>
+<span class="co">#&gt; 4 4          29 FALSE     FALSE      0.01  0.01  0.93</span>
+<span class="co">#&gt; 5 5          24 TRUE      FALSE      0.78  0     0   </span>
+<span class="co">#&gt; 6 6          23 TRUE      FALSE      0.98  0.03  0.98</span>
+<span class="co">#&gt; 7 7          15 FALSE     FALSE      0     0.41  0</span></code></pre>
+<pre><code><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Trees per region <span style="color: #00BB00;">1, 3, 1</span></span>
+<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Total <span style="color: #00BB00;">3</span> tree structures - search is <span style="font-weight: bold;">exahustive</span></span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ── Ranking trees</span>
+<span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #00BB00;">3</span>  trees with non-zero score, storing <span style="font-weight: bold;">3</span></span></code></pre>
 <p>The sampler creates a number of clone trees that can fit the data according to an error model that allows violations of the pigeonhole principle. We work with the top-ranking model.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 </div>
-<div id="visualisations" class="section level3">
-<h3 class="hasAnchor">
-<a href="#visualisations" class="anchor"></a>Visualisations</h3>
+<div class="section level3">
+<h3 id="visualisations">Visualisations<a class="anchor" aria-label="anchor" href="#visualisations"></a>
+</h3>
 <p>S3 functions for printing, and summarizing the object.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code>#&gt; <span style="color: #BBBBBB;background-color: #0000BB;"> [ ctree - ctree rank 1/3 for CUK12345 ] 
-#&gt; </span><span>
-#&gt; </span><span style="color: #555555;"># A tibble: 7 x 7</span><span>
-#&gt;   cluster nMuts is.driver is.clonal    R1    R2    R3
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> 1          72 TRUE      FALSE      0     0.92  0   
-#&gt; </span><span style="color: #555555;">2</span><span> 2          69 TRUE      TRUE       0.99  0.98  0.99
-#&gt; </span><span style="color: #555555;">3</span><span> 3          48 FALSE     FALSE      0     0     0.49
-#&gt; </span><span style="color: #555555;">4</span><span> 4          29 FALSE     FALSE      0.01  0.01  0.93
-#&gt; </span><span style="color: #555555;">5</span><span> 5          24 TRUE      FALSE      0.78  0     0   
-#&gt; </span><span style="color: #555555;">6</span><span> 6          23 TRUE      FALSE      0.98  0.03  0.98
-#&gt; </span><span style="color: #555555;">7</span><span> 7          15 FALSE     FALSE      0     0.41  0   
-#&gt; </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; Tree shape (drivers annotated)</span><span>  </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; 
-#&gt; </span><span>  \-GL
-#&gt;    \-2 :: MET, TERT
-#&gt;     |-1 :: RB1, IKZF1, KRAS
-#&gt;     | \-7
-#&gt;     \-6 :: EP300
-#&gt;      |-4
-#&gt;      | \-3
-#&gt;      \-5 :: NF1
-#&gt; </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; Information transfer</span><span>  </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; 
-#&gt; </span><span>   MET ---&gt; RB1 
-#&gt;    MET ---&gt; IKZF1 
-#&gt;    MET ---&gt; KRAS 
-#&gt;    TERT ---&gt; RB1 
-#&gt;    TERT ---&gt; IKZF1 
-#&gt;    TERT ---&gt; KRAS 
-#&gt;    GL ---&gt; MET 
-#&gt;    GL ---&gt; TERT 
-#&gt;    EP300 ---&gt; NF1 
-#&gt;    MET ---&gt; EP300 
-#&gt;    TERT ---&gt; EP300 
-#&gt; </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; Tree score</span><span> 0.6 </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; </span><span>
-</span></code></pre>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<pre class="fansi fansi-output"><code><span class="co">#&gt;  [ ctree - ctree rank 1/3 for CUK12345 ] </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; # A tibble: 7 × 7</span>
+<span class="co">#&gt;   cluster nMuts is.driver is.clonal    R1    R2    R3</span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;lgl&gt;     &lt;lgl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1          72 TRUE      FALSE      0     0.92  0   </span>
+<span class="co">#&gt; 2 2          69 TRUE      TRUE       0.99  0.98  0.99</span>
+<span class="co">#&gt; 3 3          48 FALSE     FALSE      0     0     0.49</span>
+<span class="co">#&gt; 4 4          29 FALSE     FALSE      0.01  0.01  0.93</span>
+<span class="co">#&gt; 5 5          24 TRUE      FALSE      0.78  0     0   </span>
+<span class="co">#&gt; 6 6          23 TRUE      FALSE      0.98  0.03  0.98</span>
+<span class="co">#&gt; 7 7          15 FALSE     FALSE      0     0.41  0   </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Tree shape (drivers annotated)  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   \-GL</span>
+<span class="co">#&gt;    \-2 :: MET, TERT</span>
+<span class="co">#&gt;     |-1 :: RB1, IKZF1, KRAS</span>
+<span class="co">#&gt;     | \-7</span>
+<span class="co">#&gt;     \-6 :: EP300</span>
+<span class="co">#&gt;      |-4</span>
+<span class="co">#&gt;      | \-3</span>
+<span class="co">#&gt;      \-5 :: NF1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Information transfer  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    MET ---&gt; RB1 </span>
+<span class="co">#&gt;    MET ---&gt; IKZF1 </span>
+<span class="co">#&gt;    MET ---&gt; KRAS </span>
+<span class="co">#&gt;    TERT ---&gt; RB1 </span>
+<span class="co">#&gt;    TERT ---&gt; IKZF1 </span>
+<span class="co">#&gt;    TERT ---&gt; KRAS </span>
+<span class="co">#&gt;    GL ---&gt; MET </span>
+<span class="co">#&gt;    GL ---&gt; TERT </span>
+<span class="co">#&gt;    EP300 ---&gt; NF1 </span>
+<span class="co">#&gt;    MET ---&gt; EP300 </span>
+<span class="co">#&gt;    TERT ---&gt; EP300 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Tree score 0.6 </span>
+<span class="co">#&gt; </span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code>#&gt; <span style="color: #BBBBBB;background-color: #0000BB;"> [ ctree - ctree rank 1/3 for CUK12345 ] 
-#&gt; </span><span>
-#&gt; </span><span style="color: #555555;"># A tibble: 7 x 7</span><span>
-#&gt;   cluster nMuts is.driver is.clonal    R1    R2    R3
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> 1          72 TRUE      FALSE      0     0.92  0   
-#&gt; </span><span style="color: #555555;">2</span><span> 2          69 TRUE      TRUE       0.99  0.98  0.99
-#&gt; </span><span style="color: #555555;">3</span><span> 3          48 FALSE     FALSE      0     0     0.49
-#&gt; </span><span style="color: #555555;">4</span><span> 4          29 FALSE     FALSE      0.01  0.01  0.93
-#&gt; </span><span style="color: #555555;">5</span><span> 5          24 TRUE      FALSE      0.78  0     0   
-#&gt; </span><span style="color: #555555;">6</span><span> 6          23 TRUE      FALSE      0.98  0.03  0.98
-#&gt; </span><span style="color: #555555;">7</span><span> 7          15 FALSE     FALSE      0     0.41  0   
-#&gt; </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; Tree shape (drivers annotated)</span><span>  </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; 
-#&gt; </span><span>  \-GL
-#&gt;    \-2 :: MET, TERT
-#&gt;     |-1 :: RB1, IKZF1, KRAS
-#&gt;     | \-7
-#&gt;     \-6 :: EP300
-#&gt;      |-4
-#&gt;      | \-3
-#&gt;      \-5 :: NF1
-#&gt; </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; Information transfer</span><span>  </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; 
-#&gt; </span><span>   MET ---&gt; RB1 
-#&gt;    MET ---&gt; IKZF1 
-#&gt;    MET ---&gt; KRAS 
-#&gt;    TERT ---&gt; RB1 
-#&gt;    TERT ---&gt; IKZF1 
-#&gt;    TERT ---&gt; KRAS 
-#&gt;    GL ---&gt; MET 
-#&gt;    GL ---&gt; TERT 
-#&gt;    EP300 ---&gt; NF1 
-#&gt;    MET ---&gt; EP300 
-#&gt;    TERT ---&gt; EP300 
-#&gt; </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; Tree score</span><span> 0.6 </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; 
-#&gt; CCF clusters:</span><span>  </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; 
-#&gt; </span><span style="color: #555555;"># A tibble: 7 x 7</span><span>
-#&gt;   cluster nMuts is.driver is.clonal    R1    R2    R3
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;int&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> 1          72 TRUE      FALSE      0     0.92  0   
-#&gt; </span><span style="color: #555555;">2</span><span> 2          69 TRUE      TRUE       0.99  0.98  0.99
-#&gt; </span><span style="color: #555555;">3</span><span> 3          48 FALSE     FALSE      0     0     0.49
-#&gt; </span><span style="color: #555555;">4</span><span> 4          29 FALSE     FALSE      0.01  0.01  0.93
-#&gt; </span><span style="color: #555555;">5</span><span> 5          24 TRUE      FALSE      0.78  0     0   
-#&gt; </span><span style="color: #555555;">6</span><span> 6          23 TRUE      FALSE      0.98  0.03  0.98
-#&gt; </span><span style="color: #555555;">7</span><span> 7          15 FALSE     FALSE      0     0.41  0   
-#&gt; </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; Drivers:</span><span>  </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; 
-#&gt; </span><span style="color: #555555;"># A tibble: 7 x 8</span><span>
-#&gt;   patientID variantID is.driver is.clonal cluster    R1    R2    R3
-#&gt;   </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;lgl&gt;</span><span>     </span><span style="color: #555555;font-style: italic;">&lt;chr&gt;</span><span>   </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #555555;font-style: italic;">&lt;dbl&gt;</span><span>
-#&gt; </span><span style="color: #555555;">1</span><span> CRUK0002  RB1       TRUE      FALSE     1        0     0.92  0   
-#&gt; </span><span style="color: #555555;">2</span><span> CRUK0002  IKZF1     TRUE      FALSE     1        0     0.92  0   
-#&gt; </span><span style="color: #555555;">3</span><span> CRUK0002  KRAS      TRUE      FALSE     1        0     0.93  0   
-#&gt; </span><span style="color: #555555;">4</span><span> CRUK0002  MET       TRUE      TRUE      2        0.99  0.98  0.99
-#&gt; </span><span style="color: #555555;">5</span><span> CRUK0002  TERT      TRUE      TRUE      2        0.99  0.98  0.99
-#&gt; </span><span style="color: #555555;">6</span><span> CRUK0002  NF1       TRUE      FALSE     5        0.78  0     0   
-#&gt; </span><span style="color: #555555;">7</span><span> CRUK0002  EP300     TRUE      FALSE     6        0.96  0.03  0.98
-#&gt; </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; Pigeonhole principle:</span><span> </span><span style="color: #00BB00;">12</span><span> </span><span style="color: #BB0000;">0</span><span> </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; 
-#&gt; </span><span>    R1   R2   R3
-#&gt; 1 TRUE TRUE TRUE
-#&gt; 2 TRUE TRUE TRUE
-#&gt; 4 TRUE TRUE TRUE
-#&gt; 6 TRUE TRUE TRUE
-#&gt; </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; Goodness-of-fit:</span><span> 1  </span><span style="color: #000000;background-color: #BBBB00;">
-#&gt; 
-#&gt; </span><span>
-</span></code></pre>
-<p>Then some plotting functions for the tree. A tree layout is used to display the clone tree and the information transfer, which corresponds to the ordering of the drivers annnotated in the tree. This terminology is borrowed from the <a href="https://github.com/caravagn/revolver">REVOLVER</a> algorithm, where it is used to refer to the set of trajectories that a patient “transfers” to another patient during the fit.</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<pre class="fansi fansi-output"><code><span class="co">#&gt;  [ ctree - ctree rank 1/3 for CUK12345 ] </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; # A tibble: 7 × 7</span>
+<span class="co">#&gt;   cluster nMuts is.driver is.clonal    R1    R2    R3</span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;lgl&gt;     &lt;lgl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1          72 TRUE      FALSE      0     0.92  0   </span>
+<span class="co">#&gt; 2 2          69 TRUE      TRUE       0.99  0.98  0.99</span>
+<span class="co">#&gt; 3 3          48 FALSE     FALSE      0     0     0.49</span>
+<span class="co">#&gt; 4 4          29 FALSE     FALSE      0.01  0.01  0.93</span>
+<span class="co">#&gt; 5 5          24 TRUE      FALSE      0.78  0     0   </span>
+<span class="co">#&gt; 6 6          23 TRUE      FALSE      0.98  0.03  0.98</span>
+<span class="co">#&gt; 7 7          15 FALSE     FALSE      0     0.41  0   </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Tree shape (drivers annotated)  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   \-GL</span>
+<span class="co">#&gt;    \-2 :: MET, TERT</span>
+<span class="co">#&gt;     |-1 :: RB1, IKZF1, KRAS</span>
+<span class="co">#&gt;     | \-7</span>
+<span class="co">#&gt;     \-6 :: EP300</span>
+<span class="co">#&gt;      |-4</span>
+<span class="co">#&gt;      | \-3</span>
+<span class="co">#&gt;      \-5 :: NF1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Information transfer  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    MET ---&gt; RB1 </span>
+<span class="co">#&gt;    MET ---&gt; IKZF1 </span>
+<span class="co">#&gt;    MET ---&gt; KRAS </span>
+<span class="co">#&gt;    TERT ---&gt; RB1 </span>
+<span class="co">#&gt;    TERT ---&gt; IKZF1 </span>
+<span class="co">#&gt;    TERT ---&gt; KRAS </span>
+<span class="co">#&gt;    GL ---&gt; MET </span>
+<span class="co">#&gt;    GL ---&gt; TERT </span>
+<span class="co">#&gt;    EP300 ---&gt; NF1 </span>
+<span class="co">#&gt;    MET ---&gt; EP300 </span>
+<span class="co">#&gt;    TERT ---&gt; EP300 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Tree score 0.6 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; CCF clusters:  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; # A tibble: 7 × 7</span>
+<span class="co">#&gt;   cluster nMuts is.driver is.clonal    R1    R2    R3</span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;lgl&gt;     &lt;lgl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1          72 TRUE      FALSE      0     0.92  0   </span>
+<span class="co">#&gt; 2 2          69 TRUE      TRUE       0.99  0.98  0.99</span>
+<span class="co">#&gt; 3 3          48 FALSE     FALSE      0     0     0.49</span>
+<span class="co">#&gt; 4 4          29 FALSE     FALSE      0.01  0.01  0.93</span>
+<span class="co">#&gt; 5 5          24 TRUE      FALSE      0.78  0     0   </span>
+<span class="co">#&gt; 6 6          23 TRUE      FALSE      0.98  0.03  0.98</span>
+<span class="co">#&gt; 7 7          15 FALSE     FALSE      0     0.41  0   </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Drivers:  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; # A tibble: 7 × 8</span>
+<span class="co">#&gt;   patientID variantID is.driver is.clonal cluster    R1    R2    R3</span>
+<span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;lgl&gt;     &lt;lgl&gt;     &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 CRUK0002  RB1       TRUE      FALSE     1        0     0.92  0   </span>
+<span class="co">#&gt; 2 CRUK0002  IKZF1     TRUE      FALSE     1        0     0.92  0   </span>
+<span class="co">#&gt; 3 CRUK0002  KRAS      TRUE      FALSE     1        0     0.93  0   </span>
+<span class="co">#&gt; 4 CRUK0002  MET       TRUE      TRUE      2        0.99  0.98  0.99</span>
+<span class="co">#&gt; 5 CRUK0002  TERT      TRUE      TRUE      2        0.99  0.98  0.99</span>
+<span class="co">#&gt; 6 CRUK0002  NF1       TRUE      FALSE     5        0.78  0     0   </span>
+<span class="co">#&gt; 7 CRUK0002  EP300     TRUE      FALSE     6        0.96  0.03  0.98</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Pigeonhole principle: 12 0 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     R1   R2   R3</span>
+<span class="co">#&gt; 1 TRUE TRUE TRUE</span>
+<span class="co">#&gt; 2 TRUE TRUE TRUE</span>
+<span class="co">#&gt; 4 TRUE TRUE TRUE</span>
+<span class="co">#&gt; 6 TRUE TRUE TRUE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Goodness-of-fit: 1  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span></code></pre>
+<p>Then some plotting functions for the tree. A tree layout is used to display the clone tree and the information transfer, which corresponds to the ordering of the drivers annnotated in the tree. This terminology is borrowed from the <a href="https://github.com/caravagn/revolver" class="external-link">REVOLVER</a> algorithm, where it is used to refer to the set of trajectories that a patient “transfers” to another patient during the fit.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; Warning: Duplicated aesthetics after name standardisation: na.rm</span>
+<span class="co">#&gt; Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =</span>
+<span class="co">#&gt; "none")` instead.</span>
 <span class="co">#&gt; Warning: Removed 1 rows containing missing values (geom_point).</span></code></pre></div>
 <p><img src="ctree_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_information_transfer.html">plot_information_transfer</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_information_transfer.html">plot_information_transfer</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =</span>
+<span class="co">#&gt; "none")` instead.</span></code></pre></div>
 <p><img src="ctree_files/figure-html/unnamed-chunk-10-2.png" width="700"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_icon.html">plot_icon</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_icon.html">plot_icon</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =</span>
+<span class="co">#&gt; "none")` instead.</span></code></pre></div>
 <p><img src="ctree_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <p>For the data, you can plot the CCF of the clusters.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -329,11 +326,13 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 
       <footer><div class="copyright">
-  <p>Developed by Giulio Caravagna.</p>
+  <p></p>
+<p>Developed by Giulio Caravagna.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -341,6 +340,8 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
   
 
+
+  
 
   </body>
 </html>
