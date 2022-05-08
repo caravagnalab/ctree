@@ -1,3 +1,5 @@
+# ctree 1.1.0
+
 # ctree 1.0.0
 
 * First `ctree` release.
