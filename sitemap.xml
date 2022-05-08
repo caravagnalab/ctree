@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/404.html</loc>
   </url>
   <url>
-    <loc>/articles/ctree.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/articles/ctree.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/articles/index.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/index.html</loc>
   </url>
   <url>
-    <loc>/reference/ctree.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/reference/ctree.html</loc>
   </url>
   <url>
-    <loc>/reference/ctree_input.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/reference/ctree_input.html</loc>
   </url>
   <url>
-    <loc>/reference/ctrees.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/reference/ctrees.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/plot.ctree.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/reference/plot.ctree.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_CCF_clusters.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/reference/plot_CCF_clusters.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_clone_size.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/reference/plot_clone_size.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_icon.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/reference/plot_icon.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_information_transfer.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/reference/plot_information_transfer.html</loc>
   </url>
   <url>
-    <loc>/reference/print.ctree.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/reference/print.ctree.html</loc>
   </url>
   <url>
-    <loc>/reference/summary.ctree.html</loc>
+    <loc>https://caravagnalab.github.io/ctree/reference/summary.ctree.html</loc>
   </url>
 </urlset>
