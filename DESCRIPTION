@@ -1,7 +1,7 @@
 Package: ctree
 Version: 0.1.2
 Date: 2020-09-22
-Title: ctree - Clone Tree
+Title: ctree - Clone trees in cancer evolution
 Authors@R: c(
     person("Giulio", "Caravagna", , "gcaravagn@gmail.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0003-4240-3265")),
@@ -13,10 +13,9 @@ Description: This package provides an implementation for clone trees
   that can be build of Cancer Cell Franctions (CCFs) clusters computed by
   tumour subclonal deconvolution. This type of models can be used to study
   the evolutionary trajectories of a tumour from bulk sequencing data.
-  This package provides several functions to generate clone trees from 
+  This package provides functions to generate clone trees from 
   the results of subclonal deconvolution analyses, to plot and summarise
-  trees, and is part of the `evoverse`, a package that gathers multiple R
-  packages to implement Cancer Evolution analyses.
+  trees.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
