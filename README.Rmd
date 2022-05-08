@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/caravagnalab/ctree/workflows/R-CMD-check/badge.svg)](https://github.com/caravagnalab/ctree/actions)
 [![pkgdown](https://github.com/caravagnalab/ctree/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/caravagnalab/ctree/actions/workflows/pkgdown.yaml)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
-
 <!-- badges: end -->
 
 

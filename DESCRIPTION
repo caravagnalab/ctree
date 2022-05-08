@@ -1,6 +1,6 @@
 Package: ctree
-Version: 0.1.2
-Date: 2020-09-22
+Version: 1.0.0
+Date: 2022-08-05
 Title: ctree - Clone trees in cancer evolution
 Authors@R: c(
     person("Giulio", "Caravagna", , "gcaravagn@gmail.com", role = c("aut", "cre"),
