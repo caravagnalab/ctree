@@ -53,3 +53,4 @@ Suggests:
     matrixStats,
     covr
 VignetteBuilder: knitr
+URL: https://caravagnalab.github.io/ctree/

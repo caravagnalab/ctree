@@ -1,16 +1,14 @@
 
+# ctree <a href="https://caravagnalab.github.io/ctree/"><img src="man/figures/logo.png" align="right" height="139" /></a>
+
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/caravagnalab/ctree/workflows/R-CMD-check/badge.svg)](https://github.com/caravagnalab/ctree/actions)
-
 [![pkgdown](https://github.com/caravagnalab/ctree/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/caravagnalab/ctree/actions/workflows/pkgdown.yaml)
-
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 <!-- badges: end -->
-
-# ctree <img src='man/figures/logo.png' align="right" height="139" />
 
 The `ctree` package implements clones trees for cancer evolutionary
 studies. These models are built from Cancer Cell Franctions (CCFs)
@@ -28,8 +26,7 @@ mutation trees.
 
 [![](https://img.shields.io/badge/doi-10.1038/s41592--018--0108--x-red.svg)](https://doi.org/10.1038/s41592-018-0108-x)
 
-`ctree` has been first used in this paper, please cite this if you use
-`ctree`:
+Please cite this if you use `ctree`:
 
 -   G. Caravagna, Y. Giarratano, D. Ramazzoti, I. Tomlinson, T.A.
     Graham, G. Sanguinetti, A. Sottoriva. *Detecting repeated cancer
@@ -44,8 +41,7 @@ mutation trees.
 
 ### Installation
 
-You can install the released version of `ctree` from
-[GitHub](https://github.com/) with:
+You can install the released version of `ctree` with:
 
 ``` r
 # install.packages("devtools")
@@ -58,6 +54,5 @@ devtools::install_github("caravagnalab/ctree")
 
 Giulio Caravagna. Cancer Data Science (CDS) Laboratory.
 
-[![](https://img.shields.io/badge/Email-gcaravagn@gmail.com-steelblue.svg)](mailto:gcaravagn@gmail.com)
 [![](https://img.shields.io/badge/CDS%20Lab%20Github-caravagnalab-seagreen.svg)](https://github.com/caravagnalab)
 [![](https://img.shields.io/badge/CDS%20Lab%20webpage-https://www.caravagnalab.org/-red.svg)](https://www.caravagnalab.org/)
