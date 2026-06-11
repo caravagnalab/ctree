@@ -13,5 +13,5 @@
 ^pkgdown$
 ^doc$
 ^Meta$
-^vignettes/.*Rmd$
+^\.claude$
 ^vignettes/.*gml$
