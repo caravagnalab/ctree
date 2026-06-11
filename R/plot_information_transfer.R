@@ -94,7 +94,7 @@ plot_information_transfer = function(x,
     scale_fill_manual(values = drivers_colors) +
     scale_color_manual(
       values = drivers_colors,
-      guide = guide_legend(override.aes = list(shape = 21, size = 3), alpha = 1)
+      guide = guide_legend(override.aes = list(shape = 21, size = 3, alpha = 1))
     ) +
     labs(
       title = paste(tree$patient),
@@ -102,6 +102,6 @@ plot_information_transfer = function(x,
     ) +
     guides(
       colour = guide_legend('Clone'),
-      fill = FALSE
+      fill = "none"
     )
 }

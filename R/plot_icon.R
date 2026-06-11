@@ -70,7 +70,7 @@ plot_icon = function(x,
       theme(legend.position = 'none') +
       scale_color_manual(values = tb_node_colors) +
       scale_edge_color_manual(values = tb_node_colors) +
-      guides(color = FALSE,
-             size = FALSE)
+      guides(color = "none",
+             size = "none")
 
 }

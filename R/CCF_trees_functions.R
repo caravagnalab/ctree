@@ -20,8 +20,6 @@ CCF_phylogeny_univariate = function(x, clonal.cluster)
       ch = ch[, sums <= x[n], drop = FALSE]
       ch = apply(ch, 2, list)
 
-      # print(ch)
-
       if(length(ch) == 0) break;
 
       children = append(children, ch)
@@ -43,7 +41,6 @@ CCF_phylogeny_univariate = function(x, clonal.cluster)
     m = cbind(m, `WL` = 0)
     m = rbind(m, `WL` = 0)
 
-    # r = names(x)[which.max(x)]
     r = clonal.cluster
     m['WL', r] = 1
 
@@ -54,18 +51,6 @@ CCF_phylogeny_univariate = function(x, clonal.cluster)
   pop = function(Q){ Q[-1] }
   push = function(Q,x){ append(Q, list(x)) }
   peek = function(Q){ Q[[1]] }
-
-  # Queue with cache
-  # push.cache = function(Q,x) {
-  # sgn = lapply(Q, as.vector)
-  # sgn = sapply(sgn, paste, collapse = '')
-  #
-  # key = paste(as.vector(x), collapse = '')
-  #
-  # if(!(key %in% sgn)) Q = append(Q, list(x))
-  #
-  # Q
-  # }
 
   # cache for trees
   cacheify = function(Q, x) {
@@ -80,19 +65,7 @@ CCF_phylogeny_univariate = function(x, clonal.cluster)
     !(key %in% Q)
   }
 
-  # push.cache2 = function(Q,x) {
-  #   sgn = lapply(Q, function(w) as.vector(w$tree))
-  #   sgn = sapply(sgn, paste, collapse = '')
-  #
-  #   key = paste(as.vector(x$tree), collapse = '')
-  #
-  #   if(!(key %in% sgn)) Q = append(Q, list(x))
-  #
-  #   Q
-  # }
-
-  # struct to start with is a tree with
-  # r = names(x)[which.max(x)]
+  # struct to start with is a tree with the clonal cluster as root
   r = clonal.cluster
   tree = empty(x)
 
@@ -202,27 +175,6 @@ ClonEvol_surrogate = function(clusters, samples, clonal.cluster, min.CCF = 0.01)
                    w = this_region$CCF
                    names(w) = this_region$cluster
 
-                   # w = clusters[, w]
-                   # names(w) = rownames(clusters)
-
-                   # CCF for this sample, we consider only clusters values above 1% CCF
-                   # w = w[w > min.CCF]
-
-                   # pio::pioStr(
-                   #   " Region", regname, ' ~ ', "#CCF clusters > 1%: ", length(w), 
-                   #   prefix = crayon::green(clisymbols::symbol$tick),
-                   #   suffix = '\n')
-                  
-                   # cli::cli_alert(
-                   #   "{.field {regname}} ~ {.count {length(w)}} CCF clusters >1%."
-                   # )
-                   
-                   # pio::pioStr(
-                   #   " Region", regname, ' ~ ', "#CCF clusters > 1%: ", length(w), 
-                   #   prefix = crayon::green(clisymbols::symbol$tick),
-                   #   suffix = '\n')
-                   
-                   
                    # tree -- default case with no tree
                    TR = list(data.frame(from = NULL, to = NULL))
 
@@ -254,9 +206,7 @@ ClonEvol_surrogate = function(clusters, samples, clonal.cluster, min.CCF = 0.01)
                        # turn them into the format that the tools expects and remove the temporary WL node
                        TR = lapply(TR, MatrixToDataFrame)
                        TR = lapply(TR, function(y){ y = y[y$from != 'WL', , drop = FALSE] })
-                       
-                       # print(TR)
-                       
+
                        return(TR)
                      
                    }

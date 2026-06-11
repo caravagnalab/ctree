@@ -39,7 +39,6 @@
 #' 
 #' @export
 #'
-#' @import tidyverse
 #' @import tidygraph
 #' @import clisymbols
 #' @import entropy
@@ -73,32 +72,11 @@ ctrees = function(CCF_clusters,
                               n.sampling = 5000,
                               store.max = 100)
 {
-  
-  # TODO - check input formats
-  
+
   pio::pioHdr(paste("ctree ~ clone trees generator for", patient))
-  
+
   cat("\n")
-  
-  # cli::cli_alert_info(paste(
-  #   "Sampling ",
-  #   ifelse(
-  #     options$ONLY.DRIVER == 0,
-  #     'only driver' %>% crayon::bold(),
-  #     'all annotated' %>% crayon::bold()
-  #   ),
-  #   'mutations. '
-  # ))
-  
-  
-  # pioStr('Sampler : ', 
-  #        sspace.cutoff, '(cutoff), ', 
-  #        n.sampling, '(sampling), ',
-  #        store.max, '(max store)',
-  #        suffix = '\n'
-  #        )
-  
-  
+
   # Sample structure for all trees
   structures = trees_sampler(
     CCF_clusters = CCF_clusters,
@@ -119,15 +97,7 @@ ctrees = function(CCF_clusters,
   cli::cli_alert_success(
     "{.field {length(TREES)}}  trees with non-zero score, storing {.count {b}}"
     )
-  
-  
-  # pio::pioStr(
-  #   " Trees with non-zero sscore",
-  #   length(TREES), 'storing',
-  #   min(length(TREES), store.max),
-  #   prefix = crayon::green(clisymbols::symbol$tick),
-  #   suffix = '\n')
-  
+
   if(length(TREES) > store.max)
   {
     TREES = TREES[1:store.max]
@@ -145,9 +115,7 @@ ctrees = function(CCF_clusters,
   
   TREES = TREES[permuted.indexes]
   SCORES = SCORES[permuted.indexes]
-  
-  #####################################################################
-  
+
   easypar::run(
     FUN = function(i)
     {

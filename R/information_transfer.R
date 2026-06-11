@@ -68,14 +68,15 @@ information_transfer = function(x)
     mutate(from = cluster,
            to = cluster)
   
-  # Actual expansion
+  # Actual expansion -- a cluster can carry multiple drivers, so this
+  # join intentionally fans out from/to clones into one row per driver pair
   drivers = clones %>%
     left_join(drivers %>% select(variantID, from),
-              by = 'from') %>%
+              by = 'from', relationship = "many-to-many") %>%
     mutate(from = variantID) %>%
     select(-variantID) %>%
     left_join(drivers %>% select(variantID, to),
-              by = 'to') %>%
+              by = 'to', relationship = "many-to-many") %>%
     mutate(to = variantID) %>%
     select(-variantID)
   

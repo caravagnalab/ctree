@@ -74,7 +74,7 @@ plot_CCF_clusters = function(x, ...)
       fill = CCF,
       color = is.driver)
   ) +
-    geom_tile(aes(width = .8, height = .8), size = 1) +
+    geom_tile(aes(width = .8, height = .8), linewidth = 1) +
     geom_text(aes(label = CCF), color = 'orange') +
     scale_fill_distiller(palette = 'Blues', na.value = 'gainsboro', direction = 1) +
     scale_color_manual(

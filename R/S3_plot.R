@@ -114,7 +114,7 @@ plot.ctree = function(x,
             legend.key.size = unit(3 * cex, "mm")) +
       scale_color_manual(values = tb_node_colors) +
       scale_size(range = c(3, 10) * cex) +
-      guides(color = FALSE,
+      guides(color = "none",
              size = guide_legend("Clone size", nrow = 1)) +
       labs(title = paste(tree$patient),
            subtitle = paste0('Scores ',

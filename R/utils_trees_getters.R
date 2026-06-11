@@ -34,7 +34,7 @@ children = function(model, var)
 }
 
 # Return the parent of "variable" in model
-pi = function(model, variable)
+parent_of = function(model, variable)
 {
   model = model[, variable]
   if(any(model > 0)) model = model[model > 0]
@@ -57,8 +57,7 @@ reach = function(df, x)
   
   dfB = df[ df$from == x, , drop = F]
   r = dfB$to
-  
-  # print(dfB)
+
   for(i in 1:length(r))
   {
     r = c(r, reach(df, r[i]))

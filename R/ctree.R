@@ -34,7 +34,6 @@
 #' 
 #' @export
 #'
-#' @import tidyverse
 #' @import tidygraph
 #' @import pio
 #' @import easypar
@@ -136,8 +135,8 @@ ctree =
     
     # Handle the special case of empty matrix
     is_monoclonal = (CCF_clusters$cluster %>% unique %>% length) == 1
-    
-    if(is_monoclonal == 1)
+
+    if(is_monoclonal)
     {
       message('\nThis tree has 1 node, creating a monoclonal model disregarding the input matrix.')
       
