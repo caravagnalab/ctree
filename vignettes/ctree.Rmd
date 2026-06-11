@@ -58,10 +58,13 @@ ctree_input$patient
 
 ### Creation of a clone tree
 
-You can use a sampler and control its parameters -- see `~ctrees`.
+#### Sampling trees with `ctrees`
+
+The easiest way to obtain one or more clone trees that are compatible with the input CCF clusters is to use the `ctrees` sampler, which explores the space of trees compatible with the data and ranks them by a score that penalises violations of the pigeonhole principle (see `?ctrees`).
+
 ```{r}
-x = ctrees(
-  CCF_clusters = ctree_input$CCF_clusters, 
+trees = ctrees(
+  CCF_clusters = ctree_input$CCF_clusters,
   drivers = ctree_input$drivers,
   samples = ctree_input$samples,
   patient = ctree_input$patient,
@@ -71,9 +74,75 @@ x = ctrees(
 )
 ```
 
-The sampler creates a number of clone trees that can fit the data according to an error model that allows violations of the pigeonhole principle. We work with the top-ranking model.
+The sampler's behaviour is controlled by three parameters:
+
+- `sspace.cutoff`: if the number of tree structures compatible with the data is smaller than this cutoff, every structure is examined exhaustively. Otherwise a Monte Carlo sampler is used.
+- `n.sampling`: when the Monte Carlo sampler is used, this many distinct trees are sampled and scored.
+- `store.max`: the maximum number of ranked trees that are returned to the user.
+
+`ctrees` always returns a `list` of objects of class `ctree`, ordered by decreasing score (the best tree first).
 ```{r}
-x = x[[1]]
+length(trees)
+sapply(trees, function(x) x$score)
+```
+
+We work with the top-ranking model.
+```{r}
+x = trees[[1]]
+```
+
+#### The structure of a `ctree` object
+
+A `ctree` object is a named list that fully describes one clone tree fit to the input data.
+```{r}
+names(x)
+```
+
+The main fields are:
+
+- `adj_mat`: the adjacency matrix of the tree, including a special `GL` (germline) node that is always the root of the tree;
+```{r}
+x$adj_mat
+```
+- `tb_adj_mat`: the same tree represented as a `tidygraph`/`tbl_graph` object, annotated with the CCF, sample attachment and driver information for each node -- this is what the plotting functions use;
+```{r}
+x$tb_adj_mat
+```
+- `transfer`: the *information transfer* of the tree, i.e. the set of trajectories among driver events implied by the tree topology (see the [REVOLVER](https://github.com/caravagn/revolver) paper for details);
+```{r}
+x$transfer$drivers
+```
+- `score`: the score assigned to this tree by the sampler;
+```{r}
+x$score
+```
+- `annotation`: a free-text annotation for the tree, used for instance as a title by some plotting functions.
+```{r}
+x$annotation
+```
+
+### Manual construction of a clone tree
+
+If you already know the tree structure that you want to use -- for instance because it was determined by another tool, or because you want to test a specific hypothesis -- you can build a `ctree` object directly with `ctree`, passing the adjacency matrix `M` that you want to use (see `?ctree`).
+
+Here we reuse the adjacency matrix of the tree sampled above, after removing the `GL` node that `ctree` adds automatically.
+```{r}
+M = x$adj_mat
+M = M[rownames(M) != 'GL', colnames(M) != 'GL']
+
+print(M)
+
+y = ctree(
+  CCF_clusters = ctree_input$CCF_clusters,
+  drivers = ctree_input$drivers,
+  samples = ctree_input$samples,
+  patient = ctree_input$patient,
+  M = M,
+  score = 1,
+  annotation = "A manually constructed clone tree"
+)
+
+print(y)
 ```
 
 ### Visualisations
@@ -85,21 +154,45 @@ summary(x)
 ```
 
 Then some plotting functions for the tree. A tree layout is used to display the clone tree and the information transfer, which corresponds to the ordering of the drivers annnotated in the tree. This terminology is borrowed from the [REVOLVER](https://github.com/caravagn/revolver) algorithm, where it is used to refer to the set of trajectories that a patient "transfers" to another patient during the fit.
-```{r, fig.height=4, fig.height=4}
+```{r, fig.height=4, fig.width=4}
 plot(x)
 plot_information_transfer(x)
 ```
-```{r, fig.height=2, fig.height=2}
+```{r, fig.height=2, fig.width=2}
 plot_icon(x)
 ```
 
 For the data, you can plot the CCF of the clusters.
-```{r, fig.height=3.5, fig.height=4}
+```{r, fig.height=3.5, fig.width=4}
 plot_CCF_clusters(x)
 ```
 
 Or you can plot the size of each CCF cluster as a barplot. This barplot is annotated to report wether a subclone with a driver is significantly larger than the expected size for a subclone without driver. To carry out this test subclones without drivers are used to estimate the parameters of a univariate Gaussian distribution (mean and standard deviation), the p-value is then computed from the fit distribution through the `pnorm` function. The confidence level for the test can be passed as parameter.
 
-```{r, fig.height=3.5, fig.height=4}
+```{r, fig.height=3.5, fig.width=4}
 plot_clone_size(x)
+```
+
+### The monoclonal case
+
+If a patient has just one CCF cluster, the tree is trivially a single node attached to the `GL` root; `ctree` and `ctrees` handle this special case automatically, regardless of the adjacency matrix that is provided.
+
+```{r}
+monoclonal_CCF = ctree_input$CCF_clusters[ctree_input$CCF_clusters$cluster == "2", ]
+monoclonal_drivers = ctree_input$drivers[ctree_input$drivers$cluster == "2", ]
+
+monoclonal_CCF
+monoclonal_drivers
+
+mono = ctrees(
+  CCF_clusters = monoclonal_CCF,
+  drivers = monoclonal_drivers,
+  samples = ctree_input$samples,
+  patient = "monoclonal-patient",
+  sspace.cutoff = ctree_input$sspace.cutoff,
+  n.sampling = ctree_input$n.sampling,
+  store.max = ctree_input$store.max
+)
+
+print(mono[[1]])
 ```
