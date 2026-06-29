@@ -42,6 +42,15 @@ parent_of = function(model, variable)
   return(names(model))
 }
 
+# Deprecated alias kept for backward compatibility with packages (e.g. revolver)
+# that called ctree:::pi() before it was renamed to parent_of() in ctree 1.1.0.
+pi = function(model, variable)
+{
+  .Deprecated("parent_of", package = "ctree",
+              msg = "ctree:::pi() was renamed to ctree:::parent_of() in v1.1.0. Please update your code.")
+  parent_of(model, variable)
+}
+
 # Compute the leaves of a model
 leaves = function(model){
   s = rowSums(model)
